@@ -253,6 +253,61 @@ footer{background:var(--ink);color:#EFE3D6;padding:54px 0 40px;font-size:14px;ma
 .foot-lang{margin-left:16px;color:rgba(255,255,255,.6);font-size:13px;white-space:nowrap}
 .foot-lang a{cursor:pointer;margin:0 3px}.foot-lang a:hover{color:#fff}
 </style>
+
+<style id="tc-fe">
+/* ===== TutCasa frontend pass: mobile drawer + wishlist + responsive ===== */
+html{-webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto}
+.fav{cursor:pointer;user-select:none;transition:transform .12s ease, background .12s ease}
+.fav:hover{transform:scale(1.08)}
+.fav.on{color:var(--rosa);background:#fff}
+.fav:focus-visible{outline:2px solid var(--rosa);outline-offset:2px}
+.wcount,#tcnavCount{color:var(--rosa);font-weight:700;font-size:12px}
+
+/* burger — hidden on desktop */
+.tcnav-burger{display:none;width:44px;height:44px;border-radius:14px;border:1.5px solid var(--line);
+  background:var(--paper);align-items:center;justify-content:center;color:var(--ink);padding:0}
+.tcnav-burger svg{width:23px;height:23px}
+.tcnav-burger:hover{border-color:var(--rosa);color:var(--rosa)}
+
+/* side drawer + scrim (namespaced to avoid page .drawer collisions) */
+.tcnav-scrim{position:fixed;inset:0;background:rgba(58,44,40,.45);z-index:120;opacity:0;
+  pointer-events:none;transition:opacity .2s ease}
+.tcnav-scrim.open{opacity:1;pointer-events:auto}
+.tcnav-drawer{position:fixed;top:0;right:0;bottom:0;width:86%;max-width:360px;background:var(--paper);
+  z-index:121;box-shadow:var(--shadow-lg);transform:translateX(100%);transition:transform .26s ease;
+  padding:16px 16px calc(20px + env(safe-area-inset-bottom));overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.tcnav-drawer.open{transform:none}
+.tcnav-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tcnav-top .logo-word{font-family:'Baloo 2';font-weight:800;font-size:18px;color:var(--rosa);line-height:1}
+.tcnav-top .logo-word small{display:block;font-family:'Outfit';font-size:9px;font-weight:500;color:var(--terra)}
+.tcnav-close{width:40px;height:40px;border-radius:12px;border:1.5px solid var(--line);background:#fff;
+  font-size:22px;line-height:1;color:var(--ink)}
+.tcnav-close:hover{border-color:var(--rosa);color:var(--rosa)}
+.tcnav-links{display:flex;flex-direction:column}
+.tcnav-links a{display:flex;align-items:center;gap:12px;padding:13px 12px;border-radius:12px;
+  font-weight:600;font-size:16px;color:var(--ink)}
+.tcnav-links a:hover{background:var(--crema);color:var(--rosa)}
+.tcnav-links .ni{font-size:19px;line-height:1;width:22px;text-align:center}
+.tcnav-links.secondary a{font-weight:500;font-size:14.5px;padding:11px 12px;color:var(--grey)}
+.tcnav-links.secondary a:hover{color:var(--rosa)}
+.tcnav-drawer hr{border:none;border-top:1px solid var(--line);margin:8px 2px}
+.tcnav-auth{display:flex;gap:10px;margin:10px 0 4px}
+.tcnav-auth button{flex:1;border:1.5px solid var(--rosa);background:#fff;color:var(--rosa);font-weight:700;
+  font-size:14.5px;padding:12px;border-radius:12px}
+.tcnav-auth button.alt{background:var(--rosa);color:#fff;border-color:var(--rosa)}
+.tcnav-lang{display:flex;gap:6px;justify-content:center;margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
+.tcnav-lang a{padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px;color:var(--grey);cursor:pointer;border:1px solid var(--line)}
+.tcnav-lang a:hover{border-color:var(--rosa);color:var(--rosa)}
+
+@media(max-width:880px){
+  .nav-links{display:none!important}
+  .nav-right .lang-wrap,.nav-right .acct-wrap{display:none!important}
+  .tcnav-burger{display:flex}
+  .wrap{padding-left:16px;padding-right:16px}
+}
+@media(min-width:881px){ .tcnav-drawer,.tcnav-scrim{display:none} }
+</style>
 </head>
 <body>
 <header>
@@ -267,12 +322,14 @@ footer{background:var(--ink);color:#EFE3D6;padding:54px 0 40px;font-size:14px;ma
       <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
     </nav>
     <div class="nav-right">
+      <button class="tcnav-burger" aria-label="Open menu" onclick="tcNavOpen()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       <div class="lang-wrap"><button class="lang" onclick="toggleLang(event)"><span id="langLabel">EN</span> <span style="font-size:10px">&#9662;</span></button>
         <div class="lang-menu" id="langMenu"><a onclick="setLang('en')">&#127468;&#127463; English</a><a onclick="setLang('fr')">&#127467;&#127479; Fran&ccedil;ais</a><a onclick="setLang('es')">&#127474;&#127485; Espa&ntilde;ol</a></div></div>
       <div class="acct-wrap"><button class="tc-btn" onclick="toggleAcct(event)">TC</button>
         <div class="acct-menu" id="acctMenu">
           <a class="strong" href="#" onclick="auOpen('login');return false;">Log in</a>
           <a href="#" onclick="auOpen('signup');return false;">Sign up</a><hr>
+          <a href="wishlist.html">&#10084;&#65039; Wishlist <span class="wcount" id="wcount"></span></a>
           <a href="Stays.html">Stays</a>
           <a href="Tours.html">Tours &amp; Transfers</a>
           <a href="https://wa.me/201069706782" target="_blank" rel="noopener">Concierge on WhatsApp</a>
@@ -615,6 +672,114 @@ function auFocusCode(){setTimeout(function(){var f=document.querySelector('#auCo
   inp.addEventListener('input',function(){if(this.value&&this.nextElementSibling)this.nextElementSibling.focus();});
   inp.addEventListener('keydown',function(e){if(e.key==='Backspace'&&!this.value&&this.previousElementSibling)this.previousElementSibling.focus();});
   box.appendChild(inp);} })();
+</script>
+
+<!-- TC mobile nav drawer -->
+<div class="tcnav-scrim" id="tcnavScrim" onclick="tcNavClose()"></div>
+<aside class="tcnav-drawer" id="tcnavDrawer" aria-label="Menu">
+  <div class="tcnav-top">
+    <span class="logo-word">TUT CASA<small>A king in your own house</small></span>
+    <button class="tcnav-close" onclick="tcNavClose()" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="tcnav-links">
+    <a href="Stays.html"><span class="ni">&#127968;</span><span data-i18n="nav_stays">Stays</span></a>
+    <a href="Concierge.html"><span class="ni">&#128736;&#65039;</span><span data-i18n="nav_concierge">Concierge</span></a>
+    <a href="Experiences.html"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
+    <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
+    <a href="wishlist.html"><span class="ni">&#10084;&#65039;</span>Wishlist <span class="wcount" id="tcnavCount"></span></a>
+  </nav>
+  <hr>
+  <nav class="tcnav-links secondary">
+    <a href="Tours.html">Tours &amp; Transfers</a>
+    <a href="gift-cards.html">Gift cards</a>
+    <a href="Loyalty.html">Loyalty program</a>
+    <a href="why-book-with-us.html">Why book with us</a>
+    <a href="policies.html">Help &amp; policies</a>
+    <a href="https://wa.me/201069706782" target="_blank" rel="noopener">Concierge on WhatsApp</a>
+  </nav>
+  <div class="tcnav-auth">
+    <button onclick="tcNavClose();if(window.auOpen)auOpen('login')">Log in</button>
+    <button class="alt" onclick="tcNavClose();if(window.auOpen)auOpen('signup')">Sign up</button>
+  </div>
+  <div class="tcnav-lang">
+    <a onclick="setLang('en')">&#127468;&#127463; EN</a>
+    <a onclick="setLang('fr')">&#127467;&#127479; FR</a>
+    <a onclick="setLang('es')">&#127474;&#127485; ES</a>
+  </div>
+</aside>
+
+<script id="tc-fe-js">
+/* ===== TutCasa frontend pass: wishlist + drawer ===== */
+(function(){
+  var KEY='tc_wish';
+  function read(){ try{ return JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ return {}; } }
+  function write(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} }
+  window.TC_wishHas   = function(id){ return !!read()[id]; };
+  window.TC_wishAll   = function(){ var o=read(); return Object.keys(o).map(function(k){return o[k];}); };
+  window.TC_wishCount = function(){ return Object.keys(read()).length; };
+
+  function setHeart(el,on){
+    el.classList.toggle('on',on);
+    el.innerHTML = on ? '&#9829;' : '&#9825;';
+    el.setAttribute('aria-pressed', on?'true':'false');
+  }
+  function updateCounts(){
+    var n=TC_wishCount(), t=n?('('+n+')'):'';
+    document.querySelectorAll('.wcount,#tcnavCount').forEach(function(b){ b.textContent=t; });
+  }
+  window.TC_syncHearts=function(){
+    document.querySelectorAll('[data-wish-id] .fav').forEach(function(f){
+      var card=f.closest('[data-wish-id]');
+      f.setAttribute('role','button'); f.setAttribute('tabindex','0');
+      f.setAttribute('aria-label','Save to wishlist');
+      setHeart(f, TC_wishHas(card.getAttribute('data-wish-id')));
+    });
+    updateCounts();
+  };
+  function toggle(card){
+    var id=card.getAttribute('data-wish-id'); if(!id) return;
+    var o=read();
+    if(o[id]){ delete o[id]; }
+    else{
+      o[id]={ id:id,
+        name:card.getAttribute('data-wish-name')||'',
+        meta:card.getAttribute('data-wish-meta')||'',
+        price:card.getAttribute('data-wish-price')||'',
+        rate:card.getAttribute('data-wish-rate')||'',
+        tag:card.getAttribute('data-wish-tag')||'',
+        g:card.getAttribute('data-wish-g')||'g1' };
+    }
+    write(o);
+    var f=card.querySelector('.fav'); if(f) setHeart(f,!!o[id]);
+    updateCounts();
+    if(window.TC_onWishChange) window.TC_onWishChange();
+  }
+  document.addEventListener('click',function(e){
+    var f=e.target.closest && e.target.closest('.fav'); if(!f) return;
+    var card=f.closest('[data-wish-id]'); if(!card) return;
+    e.preventDefault(); e.stopPropagation(); toggle(card);
+  });
+  document.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' ') && e.target.classList && e.target.classList.contains('fav')){
+      var card=e.target.closest('[data-wish-id]'); if(card){ e.preventDefault(); toggle(card); }
+    }
+  });
+
+  /* mobile drawer */
+  window.tcNavOpen=function(){
+    var d=document.getElementById('tcnavDrawer'), s=document.getElementById('tcnavScrim');
+    if(d)d.classList.add('open'); if(s)s.classList.add('open'); document.body.style.overflow='hidden';
+  };
+  window.tcNavClose=function(){
+    var d=document.getElementById('tcnavDrawer'), s=document.getElementById('tcnavScrim');
+    if(d)d.classList.remove('open'); if(s)s.classList.remove('open'); document.body.style.overflow='';
+  };
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') tcNavClose(); });
+
+  function init(){ if(window.TC_syncHearts) TC_syncHearts(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
 </script>
 </body>
 </html>
