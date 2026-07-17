@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TutCasa — Investors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --crema:#FFF6EC; --paper:#FFFDF9; --rosa:#E4326B; --rosa-deep:#C21E55;
+  --terra:#E8703A; --sol:#F5A623; --cactus:#2E9E6B; --cielo:#57B8DF;
+  --ink:#3A2C28; --grey:#8A7A72; --line:#F0E2D2;
+  --shadow:0 10px 28px rgba(58,44,40,.10);
+  --shadow-lg:0 18px 44px rgba(58,44,40,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--crema);color:var(--ink);line-height:1.55}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,.hand{font-family:'Baloo 2',cursive}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+button{font-family:'Outfit';cursor:pointer}
+.rosa{color:var(--rosa)} .em{color:var(--terra)}
+.hidden{display:none}
+
+/* header */
+header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:80}
+.nav{display:flex;align-items:center;gap:14px;height:72px}
+.logo{display:flex;align-items:center;gap:9px;margin-right:8px}
+.logo svg{height:42px;width:42px}
+.logo-word{font-family:'Baloo 2';font-weight:800;font-size:20px;color:var(--rosa);line-height:1}
+.logo-word small{display:block;font-family:'Outfit';font-size:9px;font-weight:500;color:var(--terra)}
+.nav-links{display:flex;gap:4px;font-size:15px;font-weight:600;margin:0 auto}
+.nav-links a{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px}
+.nav-links a:hover{background:var(--crema);color:var(--rosa)}
+.nav-links a.active{background:var(--crema);color:var(--rosa)}
+.nav-links .ni{font-size:17px;line-height:1}
+.nav-links .nu{background:var(--cactus);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;letter-spacing:.03em}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang{display:flex;align-items:center;gap:5px;font-weight:700;font-size:14px;padding:8px 10px;border-radius:999px;background:none;border:none;cursor:pointer}
+.lang:hover{background:var(--crema)}
+.tc-btn{width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:linear-gradient(135deg,var(--terra),var(--rosa));color:#fff;font-family:'Baloo 2';font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(228,50,107,.35)}
+.tc-btn:hover{transform:translateY(-1px)}
+.acct-wrap{position:relative}
+.acct-menu{position:absolute;right:0;top:54px;width:236px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:8px;display:none;z-index:90}
+.acct-menu.open{display:block}
+.acct-menu a{display:block;padding:10px 12px;border-radius:10px;font-size:14.5px;font-weight:500;cursor:pointer}
+.acct-menu a:hover{background:var(--crema)} .acct-menu a.strong{font-weight:700}
+.acct-menu hr{border:none;border-top:1px solid var(--line);margin:7px 4px}
+.lang-wrap{position:relative}
+.lang-menu{position:absolute;right:0;top:44px;width:150px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:6px;display:none;z-index:90}
+.lang-menu.open{display:block}
+.lang-menu a{display:block;padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer}
+.lang-menu a:hover{background:var(--crema);color:var(--rosa)}
+
+.backbar{max-width:1180px;margin:0 auto;padding:14px 24px 0}
+.backbtn{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:var(--grey);font-weight:700;font-size:14px;cursor:pointer;padding:6px 2px}
+.backbtn:hover{color:var(--rosa)}
+
+/* page hero */
+.page-hero{text-align:center;padding:40px 0 10px;position:relative;overflow:hidden}
+.page-hero .sun{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,var(--sol),#F7C86B 55%,transparent 70%);opacity:.26;pointer-events:none}
+.page-hero .eyebrow{position:relative;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:12.5px;color:var(--terra)}
+.page-hero h1{position:relative;font-size:clamp(30px,4.6vw,46px);font-weight:800;margin-top:6px;line-height:1.08}
+.page-hero p{position:relative;color:var(--grey);font-size:16.5px;max-width:660px;margin:14px auto 0}
+
+.btn{border:none;border-radius:999px;font-weight:800;font-size:15px;padding:14px 26px;transition:.15s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn-rosa{background:var(--rosa);color:#fff;box-shadow:0 6px 18px rgba(228,50,107,.35)}
+.btn-rosa:hover{background:var(--rosa-deep)}
+.btn-soft{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn-soft:hover{border-color:var(--rosa);color:var(--rosa)}
+.btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.6)}
+.btn-ghost:hover{background:rgba(255,255,255,.25)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+
+/* footer */
+footer{background:var(--ink);color:#EFE3D6;padding:54px 0 40px;font-size:14px;margin-top:64px}
+.foot-bottom{padding-bottom:8px}
+/* keep the fixed WhatsApp chat button from covering the legal links */
+@media(min-width:721px){.foot-legal{margin-right:230px}}
+@media(max-width:720px){.foot-bottom{flex-direction:column;align-items:center;text-align:center;padding-bottom:96px}.foot-legal a{margin:0 8px}}
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.13)}
+.foot-brand .logo-word{color:#fff}.foot-brand .logo-word small{color:var(--sol)}
+.foot-blurb{color:rgba(255,255,255,.7);font-size:13.5px;margin:12px 0 16px;max-width:300px;line-height:1.6}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
+.socials a:hover{background:var(--rosa)} .socials svg{width:18px;height:18px;fill:#fff}
+.foot-col h5{font-family:'Baloo 2';font-size:15px;color:#fff;margin-bottom:12px}
+.foot-col a{display:block;color:rgba(255,255,255,.72);font-size:13.5px;margin-bottom:9px}
+.foot-col a:hover{color:#fff}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;color:rgba(255,255,255,.6);font-size:13px}
+.foot-legal a{margin-left:16px;color:rgba(255,255,255,.6)} .foot-legal a:first-child{margin-left:0} .foot-legal a:hover{color:#fff}
+
+/* whatsapp float + chat */
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:70;display:flex;align-items:center;gap:10px;background:#1EBE5D;color:#fff;border:none;border-radius:999px;padding:13px 20px;font-weight:700;font-size:14.5px;box-shadow:0 10px 26px rgba(30,190,93,.45)}
+.wa-float small{display:block;font-weight:400;font-size:11px;opacity:.9}
+.mchat{position:fixed;bottom:84px;right:20px;width:330px;max-width:calc(100vw - 40px);background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);z-index:75;overflow:hidden;display:none}
+.mchat.open{display:block}
+.mchat-head{background:#1EBE5D;color:#fff;padding:15px 18px;display:flex;align-items:center;gap:11px}
+.mchat-head .av{width:40px;height:40px;border-radius:50%;background:#fff;color:#1EBE5D;font-family:'Baloo 2';font-weight:800;display:flex;align-items:center;justify-content:center;font-size:17px}
+.mchat-head b{font-size:15px;display:block}.mchat-head span{font-size:11.5px;opacity:.92;display:flex;align-items:center;gap:5px}
+.mchat-head .dot{width:7px;height:7px;border-radius:50%;background:#C8F5D8;display:inline-block}
+.mchat-x{margin-left:auto;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;opacity:.9}
+.mchat-body{padding:16px;background:var(--crema);display:flex;flex-direction:column;gap:10px;max-height:320px;overflow-y:auto}
+.mchat-bubble{background:#fff;border:1px solid var(--line);border-radius:14px;border-top-left-radius:4px;padding:11px 13px;font-size:13.5px;color:var(--ink);box-shadow:var(--shadow);max-width:90%}
+.mchat-bubble.me{margin-left:auto;background:var(--rosa);color:#fff;border-bottom-right-radius:5px;border-top-left-radius:14px}
+.mchat-quick{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.mchat-quick button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.mchat-quick button:hover{border-color:#1EBE5D;color:#1EBE5D}
+.mchat-foot{padding:12px 16px 16px;background:var(--crema)}
+.mchat-input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-family:'Outfit';font-size:13.5px;outline:none;margin-bottom:9px}
+.mchat-input:focus{border-color:#1EBE5D}
+.mchat-send{width:100%;background:#1EBE5D;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.mchat-send:hover{background:#17a350}
+.mchat-send.alt{background:var(--rosa);margin-bottom:8px}.mchat-send.alt:hover{background:var(--rosa-deep)}
+
+/* auth modal */
+.au-ov{display:none;position:fixed;inset:0;background:rgba(58,44,40,.55);backdrop-filter:blur(3px);z-index:200;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto}
+.au-ov.open{display:flex}
+.au-modal{background:#fff;border-radius:22px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);margin:auto;position:relative;overflow:hidden}
+.au-head{padding:26px 26px 6px;text-align:center}.au-head h2{font-size:23px;font-weight:800}.au-head p{color:var(--grey);font-size:13.5px;margin-top:4px}
+.au-x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:var(--crema);font-size:18px;color:var(--grey);cursor:pointer;z-index:2}
+.au-body{padding:12px 26px 26px}
+.au-tabs{display:flex;background:var(--crema);border-radius:12px;padding:4px;margin:6px 0 18px}
+.au-tabs button{flex:1;padding:9px;border:none;background:none;border-radius:9px;font-weight:700;font-size:14px;color:var(--grey);cursor:pointer}
+.au-tabs button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.au-social{display:flex;flex-direction:column;gap:9px}
+.au-sbtn{display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px;font-weight:600;font-size:14px;cursor:pointer}.au-sbtn:hover{background:var(--crema)} .au-sbtn svg{width:18px;height:18px}
+.au-or{display:flex;align-items:center;gap:10px;color:var(--grey);font-size:12px;margin:16px 0}.au-or::before,.au-or::after{content:'';flex:1;height:1px;background:var(--line)}
+.au-field{margin-bottom:12px}.au-field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.au-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-family:'Outfit';font-size:14px;outline:none}.au-field input:focus{border-color:var(--rosa)}
+.au-phone{display:flex;gap:8px}.au-phone select{border:1.5px solid var(--line);border-radius:11px;padding:0 8px;font-family:'Outfit';background:#fff}
+.au-primary{width:100%;background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}.au-primary:hover{background:var(--rosa-deep)}
+.au-note{font-size:12px;color:var(--grey);text-align:center;margin-top:12px}
+.au-code{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.au-code input{width:44px;height:52px;text-align:center;font-size:22px;font-weight:800;border:1.5px solid var(--line);border-radius:10px;outline:none}.au-code input:focus{border-color:var(--rosa)}
+.au-step{display:none}.au-step.on{display:block}
+.au-ok{text-align:center;padding:8px 0}.au-ok .c{width:64px;height:64px;border-radius:50%;background:var(--cactus);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
+
+@media(max-width:880px){
+  .nav-links{display:none}
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+
+
+.inv-hero{background:linear-gradient(150deg,#3A2C28 0%,#5A2A3A 55%,var(--rosa-deep) 100%);color:#fff;border-radius:0;padding:64px 0 70px;position:relative;overflow:hidden}
+.inv-hero .glow{position:absolute;top:-140px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.5),transparent 62%);pointer-events:none}
+.inv-hero .wrap{position:relative}
+.inv-hero .eyebrow{color:var(--sol);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px}
+.inv-hero h1{font-size:clamp(30px,4.8vw,50px);font-weight:800;line-height:1.08;margin-top:8px;max-width:820px}
+.inv-hero p{color:rgba(255,255,255,.85);font-size:17px;max-width:680px;margin-top:16px}
+.inv-hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.inv-metrics{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px}
+.inv-metrics b{font-family:'Baloo 2';font-size:30px;display:block;color:#fff}
+.inv-metrics span{font-size:12.5px;color:rgba(255,255,255,.75)}
+.sec{padding:56px 0 0}
+.sec .eyebrow{font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:12.5px;color:var(--terra)}
+.sec h2{font-size:30px;font-weight:800;margin-top:4px;max-width:760px}
+.sec .lede{color:var(--grey);font-size:16.5px;max-width:760px;margin-top:12px}
+.gap{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;margin-top:22px;align-items:start}
+.painbox{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.painbox h4{font-size:15px;font-weight:800;color:var(--rosa);margin-bottom:10px}
+.painbox ul{list-style:none} .painbox li{position:relative;padding-left:24px;margin-bottom:8px;font-size:14.5px;color:var(--ink)}
+.painbox li::before{content:"\2022";position:absolute;left:6px;color:var(--terra);font-weight:800}
+.cards3{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:26px}
+.icard{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);transition:.15s}
+.icard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.icard .ic{width:48px;height:48px;border-radius:14px;background:var(--crema);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
+.icard h4{font-size:17.5px;font-weight:800} .icard p{font-size:14px;color:var(--grey);margin-top:6px}
+.trend{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.trend span{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.phase{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);position:relative}
+.phase .p{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--terra)}
+.phase h4{font-size:18px;font-weight:800;margin-top:6px} .phase p.d{font-size:14px;color:var(--grey);margin-top:6px}
+.whyinvest{background:linear-gradient(140deg,var(--terra),var(--rosa));color:#fff;border-radius:26px;padding:40px;margin-top:26px;box-shadow:var(--shadow-lg)}
+.whyinvest h2{color:#fff;font-size:28px}
+.wi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:20px}
+.wi-item{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
+.wi-item .ck{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.value h4{font-size:17px;font-weight:800;color:var(--rosa)} .value p{font-size:13.5px;color:var(--grey);margin-top:5px}
+.value .ic{font-size:28px}
+.timeline{margin-top:26px;border-left:3px solid var(--line);padding-left:26px}
+.tl{position:relative;margin-bottom:26px}
+.tl::before{content:"";position:absolute;left:-33px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--rosa);border:3px solid var(--crema)}
+.tl .yr{font-family:'Baloo 2';font-weight:800;font-size:20px;color:var(--terra)}
+.tl ul{list-style:none;margin-top:6px} .tl li{font-size:14.5px;color:var(--ink);padding-left:18px;position:relative;margin-bottom:4px}
+.tl li::before{content:"\203A";position:absolute;left:0;color:var(--terra);font-weight:800}
+.resbox{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:var(--shadow);margin-top:26px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center}
+.reslist{display:flex;flex-wrap:wrap;gap:9px} .reslist span{background:var(--crema);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600}
+.faq{margin-top:20px}
+.faq details{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:6px 20px;margin-bottom:12px;box-shadow:var(--shadow)}
+.faq summary{font-weight:700;font-size:16px;padding:14px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;color:var(--rosa);font-weight:700}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{color:var(--grey);font-size:14.5px;padding:0 0 16px}
+.final{text-align:center;background:var(--ink);color:#fff;border-radius:28px;padding:52px 40px;margin-top:40px;position:relative;overflow:hidden}
+.final .glow{position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(228,50,107,.5),transparent 65%);pointer-events:none}
+.final h2{color:#fff;font-size:30px;position:relative} .final p{color:rgba(255,255,255,.82);max-width:620px;margin:14px auto 24px;position:relative}
+.final .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.disc{color:var(--grey);font-size:11.5px;text-align:center;max-width:820px;margin:26px auto 0;line-height:1.6}
+@media(max-width:880px){.gap,.resbox{grid-template-columns:1fr}.phases{grid-template-columns:1fr}.values{grid-template-columns:1fr 1fr}}
+/* restore Terms/Privacy/Cookies to their original footer position on this page */
+@media(min-width:721px){.foot-legal{margin-right:0}}
+@media(max-width:720px){.foot-bottom{flex-direction:row;align-items:center;text-align:left;padding-bottom:8px}.foot-legal a{margin-left:16px}.foot-legal a:first-child{margin-left:0}}
+
+/* tc-standardized-css */
+.mchat{position:fixed;bottom:84px;right:20px;width:330px;max-width:calc(100vw - 40px);background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);z-index:75;overflow:hidden;display:none}
+.mchat.open{display:block}
+.mchat-head{background:#1EBE5D;color:#fff;padding:15px 18px;display:flex;align-items:center;gap:11px}
+.mchat-head .av{width:40px;height:40px;border-radius:50%;background:#fff;color:#1EBE5D;font-family:'Baloo 2';font-weight:800;display:flex;align-items:center;justify-content:center;font-size:17px}
+.mchat-head b{font-size:15px;display:block}.mchat-head span{font-size:11.5px;opacity:.92;display:flex;align-items:center;gap:5px}
+.mchat-head .dot{width:7px;height:7px;border-radius:50%;background:#C8F5D8;display:inline-block}
+.mchat-x{margin-left:auto;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;opacity:.9}
+.mchat-body{padding:16px;background:var(--crema);display:flex;flex-direction:column;gap:10px;max-height:320px;overflow-y:auto}
+.mchat-bubble{background:#fff;border:1px solid var(--line);border-radius:14px;border-top-left-radius:4px;padding:11px 13px;font-size:13.5px;color:var(--ink);box-shadow:var(--shadow);max-width:90%}
+.mchat-bubble.me{margin-left:auto;background:var(--rosa);color:#fff;border-bottom-right-radius:5px;border-top-left-radius:14px}
+.mchat-quick{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.mchat-quick button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.mchat-quick button:hover{border-color:#1EBE5D;color:#1EBE5D}
+.mchat-foot{padding:12px 16px 16px;background:var(--crema)}
+.mchat-input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-family:'Outfit';font-size:13.5px;outline:none;margin-bottom:9px}
+.mchat-input:focus{border-color:#1EBE5D}
+.mchat-send{width:100%;background:#1EBE5D;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.mchat-send:hover{background:#17a350}
+.mchat-send.alt{background:var(--rosa);margin-bottom:8px}.mchat-send.alt:hover{background:var(--rosa-deep)}
+.au-ov{display:none;position:fixed;inset:0;background:rgba(58,44,40,.55);backdrop-filter:blur(3px);z-index:200;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto}
+.au-ov.open{display:flex}
+.au-modal{background:#fff;border-radius:22px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);margin:auto;position:relative;overflow:hidden}
+.au-head{padding:26px 26px 6px;text-align:center}.au-head h2{font-size:23px;font-weight:800}.au-head p{color:var(--grey);font-size:13.5px;margin-top:4px}
+.au-x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:var(--crema);font-size:18px;color:var(--grey);cursor:pointer;z-index:2}
+.au-body{padding:12px 26px 26px}
+.au-tabs{display:flex;background:var(--crema);border-radius:12px;padding:4px;margin:6px 0 18px}
+.au-tabs button{flex:1;padding:9px;border:none;background:none;border-radius:9px;font-weight:700;font-size:14px;color:var(--grey);cursor:pointer}
+.au-tabs button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.au-social{display:flex;flex-direction:column;gap:9px}
+.au-sbtn{display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px;font-weight:600;font-size:14px;cursor:pointer}.au-sbtn:hover{background:var(--crema)}.au-sbtn svg{width:18px;height:18px}
+.au-or{display:flex;align-items:center;gap:10px;color:var(--grey);font-size:12px;margin:16px 0}.au-or::before,.au-or::after{content:'';flex:1;height:1px;background:var(--line)}
+.au-field{margin-bottom:12px}.au-field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.au-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-family:'Outfit';font-size:14px;outline:none}.au-field input:focus{border-color:var(--rosa)}
+.au-phone{display:flex;gap:8px}.au-phone select{border:1.5px solid var(--line);border-radius:11px;padding:0 8px;font-family:'Outfit';background:#fff}
+.au-primary{width:100%;background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}.au-primary:hover{background:var(--rosa-deep)}
+.au-note{font-size:12px;color:var(--grey);text-align:center;margin-top:12px}
+.au-code{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.au-code input{width:44px;height:52px;text-align:center;font-size:22px;font-weight:800;border:1.5px solid var(--line);border-radius:10px;outline:none}.au-code input:focus{border-color:var(--rosa)}
+.au-step{display:none}.au-step.on{display:block}
+.au-ok{text-align:center;padding:8px 0}.au-ok .c{width:64px;height:64px;border-radius:50%;background:var(--cactus);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:70;display:inline-flex;align-items:center;gap:8px;background:#1EBE5D;color:#fff;border:none;border-radius:999px;padding:15px 22px;font-weight:800;font-size:15px;box-shadow:0 10px 26px rgba(30,190,93,.45);line-height:1}
+.wa-float small{display:block;font-weight:400;font-size:11px;opacity:.9}
+.foot-lang{margin-left:16px;color:rgba(255,255,255,.6);font-size:13px;white-space:nowrap}
+.foot-lang a{cursor:pointer;margin:0 3px}.foot-lang a:hover{color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><svg viewBox="0 0 100 100" fill="none"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4326B"/><stop offset="1" stop-color="#F5A623"/></linearGradient></defs><path d="M22 62 A34 34 0 1 1 78 62" stroke="url(#sg)" stroke-width="6" stroke-linecap="round"/><path d="M30 60 L46 34 L58 60 Z" fill="#F5A623"/><path d="M52 60 L52 46 H72 V60 Z M56 46 V40 H68 V46" fill="none" stroke="#E8703A" stroke-width="4"/><path d="M16 60 Q30 52 50 60 T84 60 A36 36 0 0 1 16 60 Z" fill="#57B8DF"/><path d="M28 74 Q46 84 62 74" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/><g stroke="#2E9E6B" stroke-width="5" stroke-linecap="round"><path d="M84 30 Q80 18 70 14"/><path d="M84 30 Q88 18 96 16"/><path d="M84 30 Q84 16 84 8"/></g></svg>
+      <span class="logo-word">TUT CASA<small>A king in your own house</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="Stays.html"><span class="ni">&#127968;</span><span data-i18n="nav_stays">Stays</span></a>
+      <a href="Concierge.html"><span class="ni">&#128736;&#65039;</span><span data-i18n="nav_concierge">Concierge</span></a>
+      <a href="Experiences.html"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
+      <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-wrap"><button class="lang" onclick="toggleLang(event)"><span id="langLabel">EN</span> <span style="font-size:10px">&#9662;</span></button>
+        <div class="lang-menu" id="langMenu"><a onclick="setLang('en')">&#127468;&#127463; English</a><a onclick="setLang('fr')">&#127467;&#127479; Fran&ccedil;ais</a><a onclick="setLang('es')">&#127474;&#127485; Espa&ntilde;ol</a></div></div>
+      <div class="acct-wrap"><button class="tc-btn" onclick="toggleAcct(event)">TC</button>
+        <div class="acct-menu" id="acctMenu">
+          <a class="strong" href="#" onclick="auOpen('login');return false;">Log in</a>
+          <a href="#" onclick="auOpen('signup');return false;">Sign up</a><hr>
+          <a href="Stays.html">Stays</a>
+          <a href="Tours.html">Tours &amp; Transfers</a>
+          <a href="https://wa.me/201069706782" target="_blank" rel="noopener">Concierge on WhatsApp</a>
+          <a href="why-book-with-us.html">Why book with us</a>
+          <a href="Loyalty.html">Loyalty program</a>
+          <a href="gift-cards.html">Gift cards</a><hr>
+          <a href="list-my-property.html">List your property</a>
+          <a href="policies.html">Help &amp; policies</a>
+        </div></div>
+    </div>
+  </div>
+</header>
+<div class="backbar"><button class="backbtn" onclick="history.back()">&larr; <span data-i18n="nav_back">Back</span></button></div>
+
+<section class="inv-hero">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="eyebrow">Investors</div>
+    <h1>Invest in the future of <span style="color:var(--sol)">luxury vacation rentals.</span></h1>
+    <p>Building the next generation of luxury villa and condo bookings through technology, exceptional guest experiences and premium hospitality. Join us as we redefine how travelers discover, book and experience luxury accommodations.</p>
+    <div class="cta">
+      <button class="btn btn-rosa" onclick="deckOpen()">Request investor deck</button>
+      <a class="btn btn-ghost" href="Contact.html">Contact us</a>
+    </div>
+    <div class="inv-metrics">
+      <div><b>40+</b><span>homes in the curated collection</span></div>
+      <div><b>200+</b><span>guests welcomed</span></div>
+      <div><b>Riviera Maya</b><span>launch market, expanding</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="sec">
+    <div class="eyebrow">Our vision</div>
+    <h2>A new standard for luxury travel</h2>
+    <p class="lede">TutCasa was created with a simple belief: luxury travelers deserve more than a place to stay. They deserve an effortless experience from the moment they begin planning until they return home. By combining premium vacation rentals with personalized concierge services, curated experiences and innovative technology, we&rsquo;re building a platform designed for the future of luxury hospitality.</p>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">The opportunity</div>
+    <h2>A fragmented market ready for innovation</h2>
+    <div class="gap">
+      <p class="lede" style="margin-top:0">The luxury vacation rental market continues to expand, yet many guests still face inconsistent quality and limited service. TutCasa bridges this gap with a curated marketplace where every property meets high standards and every guest receives exceptional service. Rather than competing solely on inventory, we compete on <b>trust, quality and experience.</b></p>
+      <div class="painbox"><h4>What guests still struggle with</h4><ul>
+        <li>Inconsistent quality</li><li>Limited personalized service</li><li>Complex booking experiences</li><li>Little support before or during their stay</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">Why TutCasa</div>
+    <h2>Our competitive advantages</h2>
+    <div class="cards3"><div class="icard"><div class="ic">&#127968;</div><h4>Curated Collection</h4><p>Every property is carefully selected and professionally managed to maintain consistent quality.</p></div>
+<div class="icard"><div class="ic">&#128736;&#65039;</div><h4>Concierge-First Experience</h4><p>Transportation, chefs, excursions, grocery delivery, wellness, celebrations and personalized recommendations &mdash; all from a single platform.</p></div>
+<div class="icard"><div class="ic">&#9889;</div><h4>Technology-Driven</h4><p>Built to streamline booking, property management and guest communication while delivering an exceptional user experience.</p></div>
+<div class="icard"><div class="ic">&#129309;</div><h4>Trusted Local Partnerships</h4><p>Strong relationships with local providers let us deliver authentic experiences while maintaining premium standards.</p></div>
+<div class="icard"><div class="ic">&#128200;</div><h4>Scalable Business Model</h4><p>A platform built to expand into new destinations while keeping quality and operational excellence consistent.</p></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">Market potential</div>
+    <h2>Why now?</h2>
+    <p class="lede">Luxury travelers increasingly seek these things &mdash; and as the trends grow, TutCasa is positioned to become a trusted destination for discerning travelers seeking both luxury and convenience.</p>
+    <div class="trend"><span>Private accommodations</span><span>Personalized experiences</span><span>Flexible travel</span><span>Premium concierge services</span><span>Digital-first booking</span></div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">Business model</div>
+    <h2>Multiple revenue streams</h2>
+    <p class="lede">TutCasa generates revenue through a diversified business model.</p>
+    <div class="cards3"><div class="icard"><div class="ic">&#127968;</div><h4>Villa &amp; Condo Bookings</h4><p>Commission earned on every reservation.</p></div>
+<div class="icard"><div class="ic">&#128736;&#65039;</div><h4>Concierge Services</h4><p>Premium travel services before and during each stay.</p></div>
+<div class="icard"><div class="ic">&#9973;</div><h4>Luxury Experiences</h4><p>Private chefs, transportation, yacht charters, wellness and exclusive excursions.</p></div>
+<div class="icard"><div class="ic">&#129309;</div><h4>Strategic Partnerships</h4><p>Preferred relationships with local hospitality and tourism partners.</p></div>
+<div class="icard"><div class="ic">&#128640;</div><h4>Future Platform Expansion</h4><p>Additional premium services and technology that increase lifetime customer value.</p></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">Growth strategy</div>
+    <h2>Scaling with purpose &mdash; quality before quantity</h2>
+    <div class="phases"><div class="phase"><div class="p">Phase One</div><h4>Riviera Maya</h4><p class="d">Establish a strong presence in the Riviera Maya.</p></div><div class="phase"><div class="p">Phase Two</div><h4>Mexico</h4><p class="d">Expand across Mexico&rsquo;s premier luxury destinations.</p></div><div class="phase"><div class="p">Phase Three</div><h4>International</h4><p class="d">Enter additional international markets through strategic partnerships.</p></div></div>
+    <p class="lede" style="font-size:14.5px">Every expansion is supported by technology, operational standards and a curated hospitality network.</p>
+  </section>
+
+  <section class="sec">
+    <div class="whyinvest">
+      <div class="eyebrow" style="color:rgba(255,255,255,.85)">Why invest</div>
+      <h2>The investment opportunity</h2>
+      <p style="color:rgba(255,255,255,.9);max-width:680px;margin-top:8px">Investors partnering with TutCasa gain exposure to a company focused on long-term value creation through:</p>
+      <div class="wi-grid"><div class="wi-item"><span class="ck">&#10003;</span>High-growth luxury travel market</div><div class="wi-item"><span class="ck">&#10003;</span>Asset-light marketplace model</div><div class="wi-item"><span class="ck">&#10003;</span>Diversified revenue streams</div><div class="wi-item"><span class="ck">&#10003;</span>Scalable technology platform</div><div class="wi-item"><span class="ck">&#10003;</span>Strong focus on customer experience</div><div class="wi-item"><span class="ck">&#10003;</span>Strategic local partnerships</div><div class="wi-item"><span class="ck">&#10003;</span>Significant expansion potential</div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">Our values</div>
+    <h2>Hospitality with purpose</h2>
+    <p class="lede">Everything we build is guided by four principles.</p>
+    <div class="values"><div class="value"><div class="ic">&#127894;&#65039;</div><h4>Excellence</h4><p>Delivering exceptional quality at every touchpoint.</p></div><div class="value"><div class="ic">&#129309;</div><h4>Integrity</h4><p>Building trust with guests, homeowners and partners.</p></div><div class="value"><div class="ic">&#128161;</div><h4>Innovation</h4><p>Using technology to simplify luxury travel.</p></div><div class="value"><div class="ic">&#127807;</div><h4>Sustainability</h4><p>Supporting local communities while promoting responsible tourism.</p></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">Roadmap</div>
+    <h2>Our journey</h2>
+    <div class="timeline"><div class="tl"><div class="yr">2026</div><ul><li>Platform launch</li><li>Initial luxury villa and condo portfolio</li><li>Concierge services</li><li>Technology foundation</li></ul></div><div class="tl"><div class="yr">2027</div><ul><li>Expanded inventory</li><li>Guest mobile experience</li><li>Strategic hospitality partnerships</li><li>Operational automation</li></ul></div><div class="tl"><div class="yr">2028+</div><ul><li>International destinations</li><li>AI-powered guest experience</li><li>Enterprise partnerships</li><li>Global brand expansion</li></ul></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">FAQ</div>
+    <h2>Investor questions</h2>
+    <div class="faq"><details><summary>Are you currently raising capital?</summary><p>TutCasa periodically evaluates strategic investment opportunities to support growth initiatives. Interested investors are encouraged to contact our team.</p></details><details><summary>Who can invest?</summary><p>We welcome conversations with qualified angel investors, venture capital firms, family offices, strategic partners and hospitality-focused investors.</p></details><details><summary>How will investment be used?</summary><p>Capital is expected to support platform development, market expansion, strategic hiring, marketing and continued innovation.</p></details><details><summary>Where is TutCasa focused?</summary><p>Our initial focus is the Riviera Maya, with a long-term strategy to expand into additional luxury travel destinations.</p></details></div>
+  </section>
+
+  <section class="sec">
+    <div class="final">
+      <div class="glow"></div>
+      <h2>Let&rsquo;s build the future of luxury hospitality together.</h2>
+      <p>We&rsquo;re looking for partners who share our vision of transforming the luxury vacation experience through technology, hospitality and exceptional service.</p>
+      <div class="cta">
+        <button class="btn btn-rosa" onclick="deckOpen()">Request the investor deck</button>
+      </div>
+    </div>
+    <p class="disc">This page is provided for general informational purposes only and does not constitute an offer to sell, or the solicitation of an offer to buy, any security, nor investment, legal or tax advice. Any figures shown are operational metrics, not financial performance or projections. Detailed materials are shared only with qualified investors, subject to confidentiality where applicable.</p>
+  </section>
+</div>
+
+<div class="au-ov" id="deckOv" onclick="if(event.target===this)deckClose()">
+  <div class="au-modal" style="max-width:460px">
+    <button class="au-x" onclick="deckClose()">&times;</button>
+    <div class="au-head"><h2>Request the investor deck</h2><p>Tell us a little about you and we&rsquo;ll send the deck to your inbox.</p></div>
+    <div class="au-body">
+      <div class="au-step on" id="deckForm">
+        <div class="gc-two" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="au-field"><label>Full name *</label><input id="dName" placeholder="Your name"></div>
+          <div class="au-field"><label>Company name</label><input id="dCompany" placeholder="Your company"></div>
+        </div>
+        <div class="gc-two" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="au-field"><label>Industry</label><input id="dIndustry" placeholder="e.g. Venture capital"></div>
+          <div class="au-field"><label>Position</label><input id="dPosition" placeholder="e.g. Partner"></div>
+        </div>
+        <div class="au-field"><label>Email *</label><input id="dEmail" type="email" placeholder="you@email.com"></div>
+        <div class="au-field"><label>Message</label><textarea id="dMsg" rows="3" style="width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-family:'Outfit';font-size:14px;outline:none" placeholder="Anything you&rsquo;d like us to know?"></textarea></div>
+        <div id="dErr" style="display:none;color:var(--rosa);font-size:12.5px;font-weight:700;margin-bottom:8px">Please add your name and a valid email.</div>
+        <button class="au-primary" onclick="deckSend()">Send request</button>
+        <div class="au-note">We respect your privacy. Detailed materials are shared with qualified investors, subject to confidentiality where applicable.</div>
+      </div>
+      <div class="au-step" id="deckOk">
+        <div class="au-ok"><div class="c">&#10003;</div><h2 style="font-size:22px;font-weight:800">Request received!</h2><p style="color:var(--grey);margin-top:8px">Thank you &mdash; our team will review your request and send the investor deck shortly.</p></div>
+        <button class="au-primary" onclick="deckClose()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="logo-word">TUT CASA<small>A king in your own house</small></span>
+        <p class="foot-blurb" data-i18n="foot_blurb">A family-run collection of homes across Mexico, Egypt &amp; Florida. Book direct, pay safely, stay like a king.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/TutCasa/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-8h2.6l.4-3H13V9c0-.9.2-1.5 1.5-1.5H16V4.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.3-3.8 3.8V11H7.5v3H10v8h3z"/></svg></a>
+          <a href="https://www.instagram.com/tutcasa/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4.1.1 1 .1 1.7.2 2.3.5.6.2 1.1.5 1.6 1s.8 1 1 1.6c.3.6.4 1.3.5 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c-.1 1-.2 1.7-.5 2.3-.2.6-.5 1.1-1 1.6s-1 .8-1.6 1c-.6.3-1.3.4-2.3.5-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1-.1-1.7-.2-2.3-.5-.6-.2-1.1-.5-1.6-1s-.8-1-1-1.6c-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c.1-1 .2-1.7.5-2.3.2-.6.5-1.1 1-1.6s1-.8 1.6-1c.6-.3 1.3-.4 2.3-.5C9 2 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zM17.8 5.9a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h5 data-i18n="foot_explore">Explore</h5>
+        <a href="Stays.html" data-i18n="nav_stays">Stays</a><a href="Experiences.html" data-i18n="foot_experiences">Experiences</a><a href="Tours.html" data-i18n="nav_tours">Tours &amp; Parks</a><a href="Concierge.html" data-i18n="nav_concierge">Concierge</a></div>
+      <div class="foot-col"><h5 data-i18n="foot_company">Company</h5>
+        <a href="Our_family.html" data-i18n="nav_family">Our Family</a><a href="Investors.html" data-i18n="foot_investors">Investors</a><a href="Loyalty.html" data-i18n="foot_loyalty">Loyalty program</a><a href="gift-cards.html" data-i18n="foot_gift">Gift cards</a><a href="list-my-property.html" data-i18n="foot_list">List my property</a></div>
+      <div class="foot-col"><h5 data-i18n="foot_support">Support</h5>
+        <a href="policies.html" data-i18n="foot_help">Help &amp; policies</a><a href="Contact.html" data-i18n="foot_contact">Contact</a><a href="https://wa.me/201069706782" target="_blank" rel="noopener" data-i18n="foot_concierge">Concierge on WhatsApp</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 TutCasa &middot; Hecho con &#10084;&#65039; en la Riviera Maya</span>
+      <span class="foot-legal"><a href="policies.html" data-i18n="foot_terms">Terms &amp; conditions</a><a href="policies.html" data-i18n="foot_privacy">Privacy</a><a href="policies.html" data-i18n="foot_cookies">Cookies</a><span class="foot-lang">&#127760; <a onclick="setLang('en')">EN</a> &middot; <a onclick="setLang('fr')">FR</a> &middot; <a onclick="setLang('es')">ES</a></span></span>
+    </div>
+  </div>
+</footer>
+<button class="wa-float" onclick="toggleChat(event)">&#9990; <span data-i18n="wa_title">Chat with May</span></button>
+<div class="mchat" id="mchat" onclick="event.stopPropagation()">
+  <div class="mchat-head"><span class="av">M</span>
+    <div><b>May from TutCasa</b><span><span class="dot"></span> usually replies in minutes</span></div>
+    <button class="mchat-x" onclick="toggleChat(event)">&times;</button>
+  </div>
+  <div class="mchat-body">
+    <div class="mchat-bubble">Hi! I&rsquo;m May &#128075; Tell me what you&rsquo;re looking for and I&rsquo;ll help you plan the perfect stay &mdash; or answer anything about a booking.</div>
+    <div class="mchat-quick">
+      <button onclick="waPreset('I\'d like help planning my stay')">Plan my stay</button>
+      <button onclick="waPreset('I have a question about a booking')">Booking question</button>
+      <button onclick="waPreset('I want to book a tour or transfer')">Tours &amp; transfers</button>
+    </div>
+  </div>
+  <div class="mchat-foot">
+    <input class="mchat-input" id="mchatInput" placeholder="Type your message&hellip;" onkeydown="if(event.key==='Enter')sendInPage()">
+    <button class="mchat-send alt" onclick="sendInPage()">&#10148; Send message</button>
+    <button class="mchat-send" onclick="sendChat()">&#9990; Continue on WhatsApp</button>
+  </div>
+</div>
+<div class="au-ov" id="auOv" onclick="if(event.target===this)auClose()">
+  <div class="au-modal">
+    <button class="au-x" onclick="auClose()">&times;</button>
+    <div class="au-head"><h2 id="auTitle">Welcome back</h2><p id="auSub">Log in to book faster and track your trips.</p></div>
+    <div class="au-body">
+      <div class="au-step on" id="auStep1">
+        <div class="au-tabs"><button id="auTabLogin" class="on" onclick="auSwitch('login')">Log in</button><button id="auTabSignup" onclick="auSwitch('signup')">Sign up</button></div>
+        <div class="au-social">
+          <button class="au-sbtn" onclick="auSocial('Google')"><svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.4 29.3 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.4 1.1 7.3 2.9l5.7-5.7C33.6 6.1 29 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c2.8 0 5.4 1.1 7.3 2.9l5.7-5.7C33.6 6.1 29 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-2.6-11.3-6.7l-6.5 5C9.6 39.7 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.6l6.2 5.2C39.9 36.1 44 30.7 44 24c0-1.3-.1-2.3-.4-3.5z"/></svg> Continue with Google</button>
+          <button class="au-sbtn" onclick="auSocial('Facebook')"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7v-3.5h3.1V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.2h3.4l-.5 3.5h-2.9v8.4A12 12 0 0024 12z"/></svg> Continue with Facebook</button>
+        </div>
+        <div class="au-or">or with email</div>
+        <div class="au-field" id="auNameField" style="display:none"><label>Full name</label><input id="auName" placeholder="Your name"></div>
+        <div class="au-field"><label>Email</label><input id="auEmail" type="email" placeholder="you@email.com"></div>
+        <div class="au-field"><label>Password</label><input id="auPass" type="password" placeholder="Your password"></div>
+        <div class="au-field" id="auPhoneField" style="display:none"><label>Phone number</label><div class="au-phone"><select id="auCC"><option>+52</option><option>+20</option><option>+1</option><option>+33</option><option>+44</option></select><input id="auPhone" type="tel" placeholder="55 1234 5678"></div></div>
+        <button class="au-primary" onclick="auSubmit()"><span id="auPrimaryLabel">Log in</span></button>
+        <div class="au-note" id="auSmsNote" style="display:none">We&rsquo;ll text you a 6-digit code to verify your number.</div>
+      </div>
+      <div class="au-step" id="auStep2">
+        <p style="text-align:center;color:var(--grey);font-size:13.5px;margin-top:6px">Enter the 6-digit code we sent to <b id="auPhoneEcho"></b></p>
+        <div class="au-code" id="auCode"></div>
+        <button class="au-primary" onclick="auVerify()">Verify &amp; continue</button>
+        <div class="au-note">Didn&rsquo;t get it? <a href="#" onclick="auSendCode();return false;" style="color:var(--rosa);font-weight:700">Resend code</a> &middot; <a href="#" onclick="auBack();return false;" style="color:var(--grey)">Change details</a></div>
+      </div>
+      <div class="au-step" id="auStep3">
+        <div class="au-ok"><div class="c">&#10003;</div><h2 id="auOkTitle" style="font-size:22px;font-weight:800">You&rsquo;re all set!</h2><p style="color:var(--grey);margin-top:8px">Your account is verified. Welcome to the TutCasa family.</p></div>
+        <button class="au-primary" onclick="auClose()">Start exploring</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* compact i18n — nav + footer keys (page body is EN; full translations can be added later) */
+window.I18N={
+ en:{nav_stays:"Stays",nav_concierge:"Concierge",nav_tours:"Tours &amp; Parks",nav_family:"Our Family",nav_back:"Back",
+  foot_blurb:"A family-run collection of homes across Mexico, Egypt &amp; Florida. Book direct, pay safely, stay like a king.",
+  foot_explore:"Explore",foot_experiences:"Experiences",foot_company:"Company",foot_investors:"Investors",foot_loyalty:"Loyalty program",foot_gift:"Gift cards",foot_list:"List my property",foot_support:"Support",foot_help:"Help &amp; policies",foot_contact:"Contact",foot_concierge:"Concierge on WhatsApp",foot_terms:"Terms &amp; conditions",foot_privacy:"Privacy",foot_cookies:"Cookies"},
+ fr:{nav_stays:"S&eacute;jours",nav_concierge:"Conciergerie",nav_tours:"Excursions &amp; Parcs",nav_family:"Notre famille",nav_back:"Retour",
+  foot_blurb:"Une collection familiale de maisons au Mexique, en &Eacute;gypte et en Floride. R&eacute;servez en direct, payez en s&eacute;curit&eacute;, vivez comme un roi.",
+  foot_explore:"Explorer",foot_experiences:"Exp&eacute;riences",foot_company:"Entreprise",foot_investors:"Investisseurs",foot_loyalty:"Programme de fid&eacute;lit&eacute;",foot_gift:"Cartes-cadeaux",foot_list:"Proposer mon bien",foot_support:"Aide",foot_help:"Aide &amp; conditions",foot_contact:"Contact",foot_concierge:"Conciergerie sur WhatsApp",foot_terms:"Conditions g&eacute;n&eacute;rales",foot_privacy:"Confidentialit&eacute;",foot_cookies:"Cookies"},
+ es:{nav_stays:"Estancias",nav_concierge:"Conserjer&iacute;a",nav_tours:"Tours y Parques",nav_family:"Nuestra familia",nav_back:"Volver",
+  foot_blurb:"Una colecci&oacute;n familiar de casas en M&eacute;xico, Egipto y Florida. Reserva directo, paga seguro, hosp&eacute;date como un rey.",
+  foot_explore:"Explorar",foot_experiences:"Experiencias",foot_company:"Empresa",foot_investors:"Inversores",foot_loyalty:"Programa de lealtad",foot_gift:"Tarjetas de regalo",foot_list:"Publicar mi propiedad",foot_support:"Soporte",foot_help:"Ayuda y pol&iacute;ticas",foot_contact:"Contacto",foot_concierge:"Conserjer&iacute;a por WhatsApp",foot_terms:"T&eacute;rminos y condiciones",foot_privacy:"Privacidad",foot_cookies:"Cookies"}
+};
+function applyLang(lang){ if(!window.I18N[lang])lang='en'; var d=window.I18N[lang];
+ document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n'); if(d[k]!==undefined)el.innerHTML=d[k];});
+ var lbl=document.getElementById('langLabel'); if(lbl)lbl.textContent=lang.toUpperCase(); document.documentElement.lang=lang;
+ document.querySelectorAll('a[href$=".html"]').forEach(function(a){var h=a.getAttribute('href'); if(!h)return; a.setAttribute('href',h.split('?')[0]+'?lang='+lang);});
+}
+function setLang(l){applyLang(l); var m=document.getElementById('langMenu'); if(m)m.classList.remove('open');}
+(function(){var u=new URLSearchParams(location.search).get('lang'); applyLang(u||'en');})();
+function toggleAcct(e){e.stopPropagation(); document.getElementById('acctMenu').classList.toggle('open'); var lm=document.getElementById('langMenu'); if(lm)lm.classList.remove('open');}
+function toggleLang(e){e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open'); document.getElementById('acctMenu').classList.remove('open');}
+
+/* chat (fixed: works on-page + WhatsApp handoff, no 'Either way' note) */
+var WA_NUMBER='201069706782';
+function toggleChat(e){if(e)e.stopPropagation(); document.getElementById('mchat').classList.toggle('open');}
+function waLink(msg){return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);}
+function waPreset(msg){window.open(waLink('Hi May! '+msg+' \u{1F44B}'),'_blank');}
+function sendInPage(){var el=document.getElementById('mchatInput'); var v=(el.value||'').trim(); if(!v)return;
+ var body=document.querySelector('.mchat-body'); var u=document.createElement('div'); u.className='mchat-bubble me'; u.textContent=v; body.appendChild(u);
+ el.value=''; window._mchatLog=(window._mchatLog||[]); window._mchatLog.push(v); body.scrollTop=body.scrollHeight;
+ setTimeout(function(){var r=document.createElement('div'); r.className='mchat-bubble'; r.innerHTML='Got it \u{1F44D} I\u2019ll reply right here \u2014 and this is on its way to my WhatsApp too. Anything else?'; body.appendChild(r); body.scrollTop=body.scrollHeight;},600);}
+function sendChat(){var v=(document.getElementById('mchatInput').value||'').trim(); var log=(window._mchatLog||[]).join('\n'); var txt=log?(log+(v?'\n'+v:'')):v; window.open(waLink(txt?'Hi May! '+txt+' \u{1F44B}':'Hi May! I\u2019d like some help planning my stay \u{1F44B}'),'_blank');}
+document.addEventListener('click',function(){var c=document.getElementById('mchat'); if(c)c.classList.remove('open'); var am=document.getElementById('acctMenu'); if(am)am.classList.remove('open'); var lm=document.getElementById('langMenu'); if(lm)lm.classList.remove('open');});
+
+/* auth modal (email / Google / Facebook + SMS code — front-end; connect to backend later) */
+var auMode='login';
+function auOpen(m){auMode=m||'login'; auSwitch(auMode); auGoStep(1); document.getElementById('auOv').classList.add('open'); var am=document.getElementById('acctMenu'); if(am)am.classList.remove('open');}
+function auClose(){document.getElementById('auOv').classList.remove('open');}
+function auSwitch(m){auMode=m; var signup=(m==='signup');
+ document.getElementById('auTabLogin').classList.toggle('on',!signup);
+ document.getElementById('auTabSignup').classList.toggle('on',signup);
+ document.getElementById('auNameField').style.display=signup?'block':'none';
+ document.getElementById('auPhoneField').style.display=signup?'block':'none';
+ document.getElementById('auSmsNote').style.display=signup?'block':'none';
+ document.getElementById('auTitle').textContent=signup?'Create your account':'Welcome back';
+ document.getElementById('auSub').textContent=signup?'Join the TutCasa family and book like a king.':'Log in to book faster and track your trips.';
+ document.getElementById('auPrimaryLabel').textContent=signup?'Create account':'Log in';}
+function auGoStep(n){[1,2,3].forEach(function(i){document.getElementById('auStep'+i).classList.toggle('on',i===n);});}
+/* Sign up -> verify phone by SMS. Log in -> straight through (already verified). */
+function auSubmit(){ if(auMode==='signup'){ auSendCode(); } else { auGoStep(3); document.getElementById('auOkTitle').textContent='You are logged in!'; } }
+function auSocial(p){ if(auMode==='signup'){ alert('Continue with '+p+' connects to '+p+' sign-in at the backend step. We will still verify your phone number by SMS.'); auGoStep(2); auFocusCode(); } else { alert('Continue with '+p+' connects to '+p+' sign-in at the backend step.'); auGoStep(3); document.getElementById('auOkTitle').textContent='You are logged in!'; } }
+function auSendCode(){var ph=(document.getElementById('auPhone').value||'').trim(); var cc=document.getElementById('auCC').value; if(!ph){document.getElementById('auPhone').focus(); return;} document.getElementById('auPhoneEcho').textContent=cc+' '+ph; auGoStep(2); auFocusCode();}
+function auVerify(){auGoStep(3); document.getElementById('auOkTitle').textContent=(auMode==='signup')?'Welcome to TutCasa!':'You are logged in!';}
+function auBack(){auGoStep(1);}
+function auFocusCode(){setTimeout(function(){var f=document.querySelector('#auCode input'); if(f)f.focus();},60);}
+(function(){var box=document.getElementById('auCode'); if(!box)return; box.innerHTML='';
+ for(var i=0;i<6;i++){var inp=document.createElement('input'); inp.maxLength=1; inp.setAttribute('inputmode','numeric');
+  inp.addEventListener('input',function(){if(this.value&&this.nextElementSibling)this.nextElementSibling.focus();});
+  inp.addEventListener('keydown',function(e){if(e.key==='Backspace'&&!this.value&&this.previousElementSibling)this.previousElementSibling.focus();});
+  box.appendChild(inp);} })();
+</script>
+<script>
+function deckOpen(){ document.getElementById('deckForm').classList.add('on'); document.getElementById('deckOk').classList.remove('on'); document.getElementById('dErr').style.display='none'; document.getElementById('deckOv').classList.add('open'); }
+function deckClose(){ document.getElementById('deckOv').classList.remove('open'); }
+function deckSend(){
+  var name=(document.getElementById('dName').value||'').trim();
+  var email=(document.getElementById('dEmail').value||'').trim();
+  var ok=name && /.+@.+\..+/.test(email);
+  if(!ok){ document.getElementById('dErr').style.display='block'; return; }
+  /* Front-end only: connect to email/CRM at the backend step. */
+  document.getElementById('deckForm').classList.remove('on');
+  document.getElementById('deckOk').classList.add('on');
+}
+</script>
+<script>
+/* tc-standardized-js : chat + auth (login skips phone; sign-up verifies by SMS) */
+var WA_NUMBER='201069706782';
+function toggleChat(e){if(e)e.stopPropagation(); var c=document.getElementById('mchat'); if(c)c.classList.toggle('open');}
+function waLink(msg){return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);}
+function waPreset(msg){window.open(waLink('Hi May! '+msg+' \u{1F44B}'),'_blank');}
+function sendInPage(){var el=document.getElementById('mchatInput'); var v=(el.value||'').trim(); if(!v)return;
+ var body=document.querySelector('.mchat-body'); var u=document.createElement('div'); u.className='mchat-bubble me'; u.textContent=v; body.appendChild(u);
+ el.value=''; window._mchatLog=(window._mchatLog||[]); window._mchatLog.push(v); body.scrollTop=body.scrollHeight;
+ setTimeout(function(){var r=document.createElement('div'); r.className='mchat-bubble'; r.innerHTML='Got it \u{1F44D} I\u2019ll reply right here \u2014 and this is on its way to my WhatsApp too. Anything else?'; body.appendChild(r); body.scrollTop=body.scrollHeight;},600);}
+function sendChat(){var el=document.getElementById('mchatInput'); var v=el?(el.value||'').trim():''; var log=(window._mchatLog||[]).join('\n'); var txt=log?(log+(v?'\n'+v:'')):v; window.open(waLink(txt?'Hi May! '+txt+' \u{1F44B}':'Hi May! I\u2019d like some help planning my stay \u{1F44B}'),'_blank');}
+document.addEventListener('click',function(){var c=document.getElementById('mchat'); if(c)c.classList.remove('open');});
+/* auth */
+var auMode='login';
+function auOpen(m){auMode=m||'login'; auSwitch(auMode); auGoStep(1); document.getElementById('auOv').classList.add('open'); var am=document.getElementById('acctMenu'); if(am)am.classList.remove('open');}
+function auClose(){document.getElementById('auOv').classList.remove('open');}
+function auSwitch(m){auMode=m; var s=(m==='signup');
+ document.getElementById('auTabLogin').classList.toggle('on',!s);
+ document.getElementById('auTabSignup').classList.toggle('on',s);
+ document.getElementById('auNameField').style.display=s?'block':'none';
+ document.getElementById('auPhoneField').style.display=s?'block':'none';
+ document.getElementById('auSmsNote').style.display=s?'block':'none';
+ document.getElementById('auTitle').textContent=s?'Create your account':'Welcome back';
+ document.getElementById('auSub').textContent=s?'Join the TutCasa family and book like a king.':'Log in to book faster and track your trips.';
+ document.getElementById('auPrimaryLabel').textContent=s?'Create account':'Log in';}
+function auGoStep(n){[1,2,3].forEach(function(i){document.getElementById('auStep'+i).classList.toggle('on',i===n);});}
+function auSubmit(){ if(auMode==='signup'){ auSendCode(); } else { auGoStep(3); document.getElementById('auOkTitle').textContent='You are logged in!'; } }
+function auSocial(p){ if(auMode==='signup'){ alert('Continue with '+p+' connects to '+p+' sign-in at the backend step. We will still verify your phone number by SMS.'); auGoStep(2); auFocusCode(); } else { alert('Continue with '+p+' connects to '+p+' sign-in at the backend step.'); auGoStep(3); document.getElementById('auOkTitle').textContent='You are logged in!'; } }
+function auSendCode(){var ph=(document.getElementById('auPhone').value||'').trim(); var cc=document.getElementById('auCC').value; if(!ph){document.getElementById('auPhone').focus(); return;} document.getElementById('auPhoneEcho').textContent=cc+' '+ph; auGoStep(2); auFocusCode();}
+function auVerify(){auGoStep(3); document.getElementById('auOkTitle').textContent=(auMode==='signup')?'Welcome to TutCasa!':'You are logged in!';}
+function auBack(){auGoStep(1);}
+function auFocusCode(){setTimeout(function(){var f=document.querySelector('#auCode input'); if(f)f.focus();},60);}
+(function(){var box=document.getElementById('auCode'); if(!box)return; box.innerHTML='';
+ for(var i=0;i<6;i++){var inp=document.createElement('input'); inp.maxLength=1; inp.setAttribute('inputmode','numeric');
+  inp.addEventListener('input',function(){if(this.value&&this.nextElementSibling)this.nextElementSibling.focus();});
+  inp.addEventListener('keydown',function(e){if(e.key==='Backspace'&&!this.value&&this.previousElementSibling)this.previousElementSibling.focus();});
+  box.appendChild(inp);} })();
+</script>
+</body>
+</html>

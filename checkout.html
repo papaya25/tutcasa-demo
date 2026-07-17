@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TutCasa &mdash; Checkout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--crema:#FFF6EC;--paper:#FFFDF9;--rosa:#E4326B;--rosa-deep:#C21E55;--terra:#E8703A;--sol:#F5A623;--cactus:#2E9E6B;--cielo:#57B8DF;--ink:#3A2C28;--grey:#8A7A72;--line:#F0E2D2;--shadow:0 10px 28px rgba(58,44,40,.10);--shadow-lg:0 18px 44px rgba(58,44,40,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--crema);color:var(--ink);line-height:1.55}
+a{color:inherit;text-decoration:none}h1,h2,h3{font-family:'Baloo 2',cursive}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}button{font-family:'Outfit';cursor:pointer}
+header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:80}
+.nav{display:flex;align-items:center;gap:14px;height:72px}
+.logo{display:flex;align-items:center;gap:9px;margin-right:8px}.logo svg{height:42px;width:42px}
+.logo-word{font-family:'Baloo 2';font-weight:800;font-size:20px;color:var(--rosa);line-height:1}
+.logo-word small{display:block;font-family:'Outfit';font-size:9px;font-weight:500;color:var(--terra)}
+.nav-links{display:flex;gap:4px;font-size:15px;font-weight:600;margin:0 auto}
+.nav-links a{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px}
+.nav-links a:hover{background:var(--crema);color:var(--rosa)}.nav-links a.active{background:var(--rosa);color:#fff}
+.nav-links .ni{font-size:17px;line-height:1}
+.nav-right{display:flex;align-items:center;gap:8px}.lang-wrap,.acct-wrap{position:relative}
+.lang{display:flex;align-items:center;gap:5px;font-weight:700;font-size:14px;padding:8px 12px;border-radius:999px;background:none;border:none}.lang:hover{background:var(--crema)}
+.lang-menu{position:absolute;right:0;top:48px;width:150px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:6px;display:none;z-index:90}.lang-menu.open{display:block}
+.lang-menu a{display:block;padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600}.lang-menu a:hover{background:var(--crema);color:var(--rosa)}
+.tc-btn{width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:linear-gradient(135deg,var(--terra),var(--rosa));color:#fff;font-family:'Baloo 2';font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(228,50,107,.35)}
+.acct-menu{position:absolute;right:0;top:54px;width:236px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:8px;display:none;z-index:90}.acct-menu.open{display:block}
+.acct-menu a{display:block;padding:10px 12px;border-radius:10px;font-size:14.5px;font-weight:500;cursor:pointer}.acct-menu a:hover{background:var(--crema)}.acct-menu a.strong{font-weight:700}
+.acct-menu hr{border:none;border-top:1px solid var(--line);margin:7px 4px}
+.backbar{max-width:1180px;margin:0 auto;padding:14px 24px 0}
+.backbtn{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:var(--grey);font-weight:700;font-size:14px;cursor:pointer;padding:6px 2px}.backbtn:hover{color:var(--rosa)}
+.page-hero{text-align:center;padding:34px 0 8px;position:relative;overflow:hidden}
+.page-hero .sun{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,var(--sol),#F7C86B 55%,transparent 70%);opacity:.26}
+.page-hero .eyebrow{position:relative;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:12.5px;color:var(--terra)}
+.page-hero h1{position:relative;font-size:clamp(30px,4.6vw,46px);font-weight:800;margin-top:4px}
+.page-hero p{position:relative;color:var(--grey);font-size:16.5px;max-width:640px;margin:12px auto 0}
+.btn-rosa{background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:14px 26px;font-weight:800;font-size:15px;cursor:pointer;display:inline-block}.btn-rosa:hover{background:var(--rosa-deep)}
+footer{background:var(--ink);color:#EFE3D6;padding:54px 0 40px;font-size:14px;margin-top:44px}
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.13)}
+.foot-brand .logo-word{color:#fff}.foot-brand .logo-word small{color:var(--sol)}
+.foot-blurb{color:rgba(255,255,255,.7);font-size:13.5px;margin:12px 0 16px;max-width:300px;line-height:1.6}
+.socials{display:flex;gap:10px}.socials a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}.socials a:hover{background:var(--rosa)}.socials svg{width:18px;height:18px;fill:#fff}
+.foot-col h5{font-family:'Baloo 2';font-size:15px;color:#fff;margin-bottom:12px}
+.foot-col a{display:block;color:rgba(255,255,255,.72);font-size:13.5px;margin-bottom:9px}.foot-col a:hover{color:#fff}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;color:rgba(255,255,255,.6);font-size:13px}
+.foot-legal a{margin-left:16px;color:rgba(255,255,255,.6)}.foot-legal a:first-child{margin-left:0}.foot-legal a:hover{color:#fff}
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:70;display:flex;align-items:center;gap:10px;background:#1EBE5D;color:#fff;border-radius:999px;padding:13px 20px;font-weight:700;font-size:14.5px;box-shadow:0 10px 26px rgba(30,190,93,.45);border:none}
+.wa-float small{display:block;font-weight:400;font-size:11px;opacity:.9}
+@media(max-width:880px){.nav-links{display:none}.foot-top{grid-template-columns:1fr 1fr}}
+
+.au-ov{display:none;position:fixed;inset:0;background:rgba(58,44,40,.55);backdrop-filter:blur(3px);z-index:200;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto}
+.au-ov.open{display:flex}
+.au-modal{background:#fff;border-radius:22px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);margin:auto;position:relative;overflow:hidden}
+.au-head{padding:26px 26px 6px;text-align:center}.au-head h2{font-size:23px;font-weight:800}.au-head p{color:var(--grey);font-size:13.5px;margin-top:4px}
+.au-x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:var(--crema);font-size:18px;color:var(--grey);cursor:pointer;z-index:2}
+.au-body{padding:12px 26px 26px}
+.au-tabs{display:flex;background:var(--crema);border-radius:12px;padding:4px;margin:6px 0 18px}
+.au-tabs button{flex:1;padding:9px;border:none;background:none;border-radius:9px;font-weight:700;font-size:14px;color:var(--grey);cursor:pointer}
+.au-tabs button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.au-social{display:flex;flex-direction:column;gap:9px}
+.au-sbtn{display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px;font-weight:600;font-size:14px;cursor:pointer}.au-sbtn:hover{background:var(--crema)}
+.au-sbtn svg{width:18px;height:18px}
+.au-or{display:flex;align-items:center;gap:10px;color:var(--grey);font-size:12px;margin:16px 0}.au-or::before,.au-or::after{content:'';flex:1;height:1px;background:var(--line)}
+.au-field{margin-bottom:12px}.au-field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.au-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-family:'Outfit';font-size:14px;outline:none}.au-field input:focus{border-color:var(--rosa)}
+.au-phone{display:flex;gap:8px}.au-phone select{border:1.5px solid var(--line);border-radius:11px;padding:0 8px;font-family:'Outfit';background:#fff}
+.au-primary{width:100%;background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}.au-primary:hover{background:var(--rosa-deep)}
+.au-note{font-size:12px;color:var(--grey);text-align:center;margin-top:12px}
+.au-code{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.au-code input{width:44px;height:52px;text-align:center;font-size:22px;font-weight:800;border:1.5px solid var(--line);border-radius:10px;outline:none}.au-code input:focus{border-color:var(--rosa)}
+.au-step{display:none}.au-step.on{display:block}
+.au-ok{text-align:center;padding:8px 0}.au-ok .c{width:64px;height:64px;border-radius:50%;background:var(--cactus);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
+
+.co-wrap{max-width:1000px;margin:0 auto;padding:6px 24px 20px}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-top:18px}
+.co-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.co-card h3{font-size:19px;font-weight:800;margin-bottom:4px}
+.co-sub{color:var(--grey);font-size:13px;margin-bottom:16px}
+.co-line{display:flex;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.co-n{font-weight:700;font-size:14.5px}.co-m{color:var(--grey);font-size:12.5px;margin-top:2px}
+.co-a{font-weight:800;white-space:nowrap}
+.co-row{display:flex;justify-content:space-between;padding:9px 0;font-size:14px}
+.co-row.big{font-size:17px;font-weight:800;padding-top:14px}
+.co-usd{color:var(--grey);font-size:12.5px;text-align:right}
+.co-dates{background:var(--crema);border-radius:12px;padding:11px 14px;font-size:13px;margin-bottom:14px}
+.co-promo{display:flex;gap:8px;margin:14px 0 4px}
+.co-promo input{flex:1;border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;font-family:'Outfit';outline:none}
+.co-promo button{border:1.5px solid var(--line);background:#fff;border-radius:11px;padding:0 16px;font-weight:700;cursor:pointer}
+.co-fld{margin-bottom:13px}.co-fld label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
+.co-fld input,.co-fld select{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:12px 13px;font-family:'Outfit';font-size:14px;outline:none}
+.co-fld input:focus{border-color:var(--rosa)}
+.co-two{display:flex;gap:12px}.co-two>div{flex:1}
+.co-stripe{display:flex;align-items:center;gap:7px;justify-content:center;color:var(--grey);font-size:12px;margin-top:14px}
+.co-pay{width:100%;background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:15px;font-weight:800;font-size:16px;cursor:pointer;margin-top:6px}.co-pay:hover{background:var(--rosa-deep)}
+.co-empty{text-align:center;padding:50px 24px;display:none}
+.co-empty .em{font-size:44px}.co-empty h2{font-size:26px;font-weight:800;margin:10px 0 6px}
+.co-empty p{color:var(--grey);margin-bottom:18px}
+.paid{display:none;max-width:560px;margin:20px auto;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:40px 30px;box-shadow:var(--shadow)}
+.paid .c{width:76px;height:76px;border-radius:50%;background:var(--cactus);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.paid h2{font-size:27px;font-weight:800}.paid p{color:var(--grey);margin:8px 0 4px}
+.paid .amt{font-size:22px;font-weight:800;color:var(--rosa);margin:14px 0}
+.co-note{background:#FFF4E0;border:1px solid #F5D9A8;border-radius:12px;padding:11px 14px;font-size:12.5px;color:#8a6a2a;margin-top:16px}
+@media(max-width:820px){.co-grid{grid-template-columns:1fr}}
+/* tc-standardized-css */
+.mchat{position:fixed;bottom:84px;right:20px;width:330px;max-width:calc(100vw - 40px);background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);z-index:75;overflow:hidden;display:none}
+.mchat.open{display:block}
+.mchat-head{background:#1EBE5D;color:#fff;padding:15px 18px;display:flex;align-items:center;gap:11px}
+.mchat-head .av{width:40px;height:40px;border-radius:50%;background:#fff;color:#1EBE5D;font-family:'Baloo 2';font-weight:800;display:flex;align-items:center;justify-content:center;font-size:17px}
+.mchat-head b{font-size:15px;display:block}.mchat-head span{font-size:11.5px;opacity:.92;display:flex;align-items:center;gap:5px}
+.mchat-head .dot{width:7px;height:7px;border-radius:50%;background:#C8F5D8;display:inline-block}
+.mchat-x{margin-left:auto;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;opacity:.9}
+.mchat-body{padding:16px;background:var(--crema);display:flex;flex-direction:column;gap:10px;max-height:320px;overflow-y:auto}
+.mchat-bubble{background:#fff;border:1px solid var(--line);border-radius:14px;border-top-left-radius:4px;padding:11px 13px;font-size:13.5px;color:var(--ink);box-shadow:var(--shadow);max-width:90%}
+.mchat-bubble.me{margin-left:auto;background:var(--rosa);color:#fff;border-bottom-right-radius:5px;border-top-left-radius:14px}
+.mchat-quick{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.mchat-quick button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.mchat-quick button:hover{border-color:#1EBE5D;color:#1EBE5D}
+.mchat-foot{padding:12px 16px 16px;background:var(--crema)}
+.mchat-input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-family:'Outfit';font-size:13.5px;outline:none;margin-bottom:9px}
+.mchat-input:focus{border-color:#1EBE5D}
+.mchat-send{width:100%;background:#1EBE5D;color:#fff;border:none;border-radius:12px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.mchat-send:hover{background:#17a350}
+.mchat-send.alt{background:var(--rosa);margin-bottom:8px}.mchat-send.alt:hover{background:var(--rosa-deep)}
+.au-ov{display:none;position:fixed;inset:0;background:rgba(58,44,40,.55);backdrop-filter:blur(3px);z-index:200;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto}
+.au-ov.open{display:flex}
+.au-modal{background:#fff;border-radius:22px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);margin:auto;position:relative;overflow:hidden}
+.au-head{padding:26px 26px 6px;text-align:center}.au-head h2{font-size:23px;font-weight:800}.au-head p{color:var(--grey);font-size:13.5px;margin-top:4px}
+.au-x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:var(--crema);font-size:18px;color:var(--grey);cursor:pointer;z-index:2}
+.au-body{padding:12px 26px 26px}
+.au-tabs{display:flex;background:var(--crema);border-radius:12px;padding:4px;margin:6px 0 18px}
+.au-tabs button{flex:1;padding:9px;border:none;background:none;border-radius:9px;font-weight:700;font-size:14px;color:var(--grey);cursor:pointer}
+.au-tabs button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.au-social{display:flex;flex-direction:column;gap:9px}
+.au-sbtn{display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px;font-weight:600;font-size:14px;cursor:pointer}.au-sbtn:hover{background:var(--crema)}.au-sbtn svg{width:18px;height:18px}
+.au-or{display:flex;align-items:center;gap:10px;color:var(--grey);font-size:12px;margin:16px 0}.au-or::before,.au-or::after{content:'';flex:1;height:1px;background:var(--line)}
+.au-field{margin-bottom:12px}.au-field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.au-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-family:'Outfit';font-size:14px;outline:none}.au-field input:focus{border-color:var(--rosa)}
+.au-phone{display:flex;gap:8px}.au-phone select{border:1.5px solid var(--line);border-radius:11px;padding:0 8px;font-family:'Outfit';background:#fff}
+.au-primary{width:100%;background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}.au-primary:hover{background:var(--rosa-deep)}
+.au-note{font-size:12px;color:var(--grey);text-align:center;margin-top:12px}
+.au-code{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.au-code input{width:44px;height:52px;text-align:center;font-size:22px;font-weight:800;border:1.5px solid var(--line);border-radius:10px;outline:none}.au-code input:focus{border-color:var(--rosa)}
+.au-step{display:none}.au-step.on{display:block}
+.au-ok{text-align:center;padding:8px 0}.au-ok .c{width:64px;height:64px;border-radius:50%;background:var(--cactus);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:70;display:inline-flex;align-items:center;gap:8px;background:#1EBE5D;color:#fff;border:none;border-radius:999px;padding:15px 22px;font-weight:800;font-size:15px;box-shadow:0 10px 26px rgba(30,190,93,.45);line-height:1}
+.wa-float small{display:block;font-weight:400;font-size:11px;opacity:.9}
+.foot-lang{margin-left:16px;color:rgba(255,255,255,.6);font-size:13px;white-space:nowrap}
+.foot-lang a{cursor:pointer;margin:0 3px}.foot-lang a:hover{color:#fff}
+/* tc-foot-clear */
+@media(min-width:721px){.foot-legal{margin-right:230px}}
+@media(max-width:720px){.foot-bottom{flex-direction:column;align-items:center;text-align:center;padding-bottom:96px}.foot-legal a{margin:0 8px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><svg viewBox="0 0 100 100" fill="none"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4326B"/><stop offset="1" stop-color="#F5A623"/></linearGradient></defs><path d="M22 62 A34 34 0 1 1 78 62" stroke="url(#sg)" stroke-width="6" stroke-linecap="round"/><path d="M30 60 L46 34 L58 60 Z" fill="#F5A623"/><path d="M52 60 L52 46 H72 V60 Z M56 46 V40 H68 V46" fill="none" stroke="#E8703A" stroke-width="4"/><path d="M16 60 Q30 52 50 60 T84 60 A36 36 0 0 1 16 60 Z" fill="#57B8DF"/><path d="M28 74 Q46 84 62 74" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/><g stroke="#2E9E6B" stroke-width="5" stroke-linecap="round"><path d="M84 30 Q80 18 70 14"/><path d="M84 30 Q88 18 96 16"/><path d="M84 30 Q84 16 84 8"/></g></svg>
+      <span class="logo-word">TUT CASA<small>A king in your own house</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="Stays.html"><span class="ni">&#127968;</span><span data-i18n="nav_stays">Stays</span></a>
+      <a href="Concierge.html"><span class="ni">&#128736;&#65039;</span><span data-i18n="nav_concierge">Concierge</span></a>
+      <a href="Experiences.html"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
+      <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-wrap"><button class="lang" onclick="toggleLang(event)"><span id="langLabel">EN</span> <span style="font-size:10px">&#9662;</span></button>
+        <div class="lang-menu" id="langMenu"><a onclick="setLang('en')">&#127468;&#127463; English</a><a onclick="setLang('fr')">&#127467;&#127479; Fran&ccedil;ais</a><a onclick="setLang('es')">&#127474;&#127485; Espa&ntilde;ol</a></div></div>
+      <div class="acct-wrap"><button class="tc-btn" onclick="toggleAcct(event)">TC</button>
+        <div class="acct-menu" id="acctMenu">
+          <a class="strong" href="#" onclick="auOpen('login');return false;">Log in</a>
+          <a href="#" onclick="auOpen('signup');return false;">Sign up</a><hr>
+          <a href="Stays.html">Stays</a>
+          <a href="Tours.html">Tours &amp; Transfers</a>
+          <a href="https://wa.me/201069706782" target="_blank" rel="noopener">Concierge on WhatsApp</a>
+          <a href="why-book-with-us.html">Why book with us</a>
+          <a href="Loyalty.html">Loyalty program</a>
+          <a href="gift-cards.html">Gift cards</a><hr>
+          <a href="list-my-property.html">List your property</a>
+          <a href="policies.html">Help &amp; policies</a>
+        </div></div>
+    </div>
+  </div>
+</header>
+
+<div class="backbar"><button class="backbtn" onclick="history.back()">&larr; <span data-i18n="nav_back">Back</span></button></div>
+<div class="page-hero" style="padding:26px 0 2px"><div class="sun"></div><div class="eyebrow">Secure checkout</div><h1>Review &amp; pay</h1></div>
+<div class="co-wrap">
+  <div class="co-empty" id="emptyCart">
+    <div class="em">&#128717;&#65039;</div><h2>Your cart is empty</h2>
+    <p>Add a tour or an experience and it&rsquo;ll show up here, ready to book.</p>
+    <a class="btn-rosa" href="Tours.html">Browse tours &amp; parks</a>
+  </div>
+  <div class="co-grid" id="checkoutMain">
+    <div class="co-card">
+      <h3>Order summary</h3><div class="co-sub">You can adjust anything with May on WhatsApp before you pay.</div>
+      <div class="co-dates" id="coDates" style="display:none">&#128197; <b>Dates:</b> <span id="coDatesVal"></span></div>
+      <div id="cartLines"></div>
+      <div class="co-promo"><input id="promo" placeholder="Gift or loyalty coupon"><button onclick="applyPromo()">Apply</button></div>
+      <div id="promoMsg" style="font-size:12.5px;color:var(--cactus);display:none;margin-bottom:8px">Coupon saved &mdash; we&rsquo;ll validate it before charging.</div>
+      <div class="co-row"><span>Subtotal</span><span id="coSubtotal">$0 MXN</span></div>
+      <div class="co-row big"><span>Total</span><span id="coTotal">$0 MXN</span></div>
+      <div class="co-usd" id="coUsd"></div>
+    </div>
+    <div class="co-card">
+      <h3>Payment</h3><div class="co-sub">Card details are handled by Stripe. TutCasa never sees your card number.</div>
+      <div class="co-fld"><label>Name on card</label><input id="ccName" placeholder="MARIA LOPEZ"></div>
+      <div class="co-fld"><label>Card number</label><input id="ccNum" inputmode="numeric" placeholder="1234 1234 1234 1234" oninput="fmtCard(this)"></div>
+      <div class="co-two">
+        <div class="co-fld"><label>Expiry</label><input id="ccExp" inputmode="numeric" placeholder="MM / YY" oninput="fmtExp(this)"></div>
+        <div class="co-fld"><label>CVC</label><input id="ccCvc" inputmode="numeric" placeholder="123" oninput="fmtCvc(this)"></div>
+      </div>
+      <div class="co-fld"><label>Country</label><select id="ccCountry"><option>Mexico</option><option>United States</option><option>Canada</option><option>Egypt</option><option>United Kingdom</option><option>France</option></select></div>
+      <button class="co-pay" id="payBtn" onclick="pay()"><span id="payLabel">Pay</span></button>
+      <div class="co-stripe">&#128274; <span>Secured by</span> <b style="color:#635BFF">Stripe</b></div>
+      <div class="co-note">Preview mode: this shows the full checkout flow. The live Stripe charge is switched on at the backend step &mdash; no real payment is taken here.</div>
+    </div>
+  </div>
+  <div class="paid" id="paidScreen">
+    <div class="c">&#10003;</div><h2>Booking confirmed!</h2>
+    <p>Thank you &mdash; a confirmation is on its way, and May will message you on WhatsApp with the final details.</p>
+    <div class="amt" id="paidTotal"></div>
+    <a class="btn-rosa" href="index.html">Back to home</a>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="logo-word">TUT CASA<small>A king in your own house</small></span>
+        <p class="foot-blurb" data-i18n="foot_blurb">A family-run collection of homes across Mexico, Egypt &amp; Florida. Book direct, pay safely, stay like a king.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/TutCasa/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-8h2.6l.4-3H13V9c0-.9.2-1.5 1.5-1.5H16V4.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.3-3.8 3.8V11H7.5v3H10v8h3z"/></svg></a>
+          <a href="https://www.instagram.com/tutcasa/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4.1.1 1 .1 1.7.2 2.3.5.6.2 1.1.5 1.6 1s.8 1 1 1.6c.3.6.4 1.3.5 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c-.1 1-.2 1.7-.5 2.3-.2.6-.5 1.1-1 1.6s-1 .8-1.6 1c-.6.3-1.3.4-2.3.5-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1-.1-1.7-.2-2.3-.5-.6-.2-1.1-.5-1.6-1s-.8-1-1-1.6c-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c.1-1 .2-1.7.5-2.3.2-.6.5-1.1 1-1.6s1-.8 1.6-1c.6-.3 1.3-.4 2.3-.5C9 2 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zM17.8 5.9a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h5 data-i18n="foot_explore">Explore</h5>
+        <a href="Stays.html" data-i18n="nav_stays">Stays</a><a href="Experiences.html" data-i18n="foot_experiences">Experiences</a><a href="Tours.html" data-i18n="nav_tours">Tours &amp; Parks</a><a href="Concierge.html" data-i18n="nav_concierge">Concierge</a></div>
+      <div class="foot-col"><h5 data-i18n="foot_company">Company</h5>
+        <a href="Our_family.html" data-i18n="nav_family">Our Family</a><a href="Investors.html" data-i18n="foot_investors">Investors</a><a href="Loyalty.html" data-i18n="foot_loyalty">Loyalty program</a><a href="gift-cards.html" data-i18n="foot_gift">Gift cards</a><a href="list-my-property.html" data-i18n="foot_list">List my property</a></div>
+      <div class="foot-col"><h5 data-i18n="foot_support">Support</h5>
+        <a href="policies.html" data-i18n="foot_help">Help &amp; policies</a><a href="Contact.html" data-i18n="foot_contact">Contact</a><a href="https://wa.me/201069706782" target="_blank" rel="noopener" data-i18n="foot_concierge">Concierge on WhatsApp</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 TutCasa &middot; Hecho con &#10084;&#65039; en la Riviera Maya</span>
+      <span class="foot-legal"><a href="policies.html" data-i18n="foot_terms">Terms &amp; conditions</a><a href="policies.html" data-i18n="foot_privacy">Privacy</a><a href="policies.html" data-i18n="foot_cookies">Cookies</a><span class="foot-lang">&#127760; <a onclick="setLang('en')">EN</a> &middot; <a onclick="setLang('fr')">FR</a> &middot; <a onclick="setLang('es')">ES</a></span></span>
+    </div>
+  </div>
+</footer>
+<button class="wa-float" onclick="toggleChat(event)">&#9990; <span data-i18n="wa_title">Chat with May</span></button>
+<div class="mchat" id="mchat" onclick="event.stopPropagation()">
+  <div class="mchat-head"><span class="av">M</span>
+    <div><b>May from TutCasa</b><span><span class="dot"></span> usually replies in minutes</span></div>
+    <button class="mchat-x" onclick="toggleChat(event)">&times;</button>
+  </div>
+  <div class="mchat-body">
+    <div class="mchat-bubble">Hi! I&rsquo;m May &#128075; Tell me what you&rsquo;re looking for and I&rsquo;ll help you plan the perfect stay &mdash; or answer anything about a booking.</div>
+    <div class="mchat-quick">
+      <button onclick="waPreset('I\'d like help planning my stay')">Plan my stay</button>
+      <button onclick="waPreset('I have a question about a booking')">Booking question</button>
+      <button onclick="waPreset('I want to book a tour or transfer')">Tours &amp; transfers</button>
+    </div>
+  </div>
+  <div class="mchat-foot">
+    <input class="mchat-input" id="mchatInput" placeholder="Type your message&hellip;" onkeydown="if(event.key==='Enter')sendInPage()">
+    <button class="mchat-send alt" onclick="sendInPage()">&#10148; Send message</button>
+    <button class="mchat-send" onclick="sendChat()">&#9990; Continue on WhatsApp</button>
+  </div>
+</div>
+<div class="au-ov" id="auOv" onclick="if(event.target===this)auClose()">
+  <div class="au-modal">
+    <button class="au-x" onclick="auClose()">&times;</button>
+    <div class="au-head"><h2 id="auTitle">Welcome back</h2><p id="auSub">Log in to book faster and track your trips.</p></div>
+    <div class="au-body">
+      <div class="au-step on" id="auStep1">
+        <div class="au-tabs"><button id="auTabLogin" class="on" onclick="auSwitch('login')">Log in</button><button id="auTabSignup" onclick="auSwitch('signup')">Sign up</button></div>
+        <div class="au-social">
+          <button class="au-sbtn" onclick="auSocial('Google')"><svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.4 29.3 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.4 1.1 7.3 2.9l5.7-5.7C33.6 6.1 29 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c2.8 0 5.4 1.1 7.3 2.9l5.7-5.7C33.6 6.1 29 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-2.6-11.3-6.7l-6.5 5C9.6 39.7 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.6l6.2 5.2C39.9 36.1 44 30.7 44 24c0-1.3-.1-2.3-.4-3.5z"/></svg> Continue with Google</button>
+          <button class="au-sbtn" onclick="auSocial('Facebook')"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7v-3.5h3.1V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.2h3.4l-.5 3.5h-2.9v8.4A12 12 0 0024 12z"/></svg> Continue with Facebook</button>
+        </div>
+        <div class="au-or">or with email</div>
+        <div class="au-field" id="auNameField" style="display:none"><label>Full name</label><input id="auName" placeholder="Your name"></div>
+        <div class="au-field"><label>Email</label><input id="auEmail" type="email" placeholder="you@email.com"></div>
+        <div class="au-field"><label>Password</label><input id="auPass" type="password" placeholder="Your password"></div>
+        <div class="au-field" id="auPhoneField" style="display:none"><label>Phone number</label><div class="au-phone"><select id="auCC"><option>+52</option><option>+20</option><option>+1</option><option>+33</option><option>+44</option></select><input id="auPhone" type="tel" placeholder="55 1234 5678"></div></div>
+        <button class="au-primary" onclick="auSubmit()"><span id="auPrimaryLabel">Log in</span></button>
+        <div class="au-note" id="auSmsNote" style="display:none">We&rsquo;ll text you a 6-digit code to verify your number.</div>
+      </div>
+      <div class="au-step" id="auStep2">
+        <p style="text-align:center;color:var(--grey);font-size:13.5px;margin-top:6px">Enter the 6-digit code we sent to <b id="auPhoneEcho"></b></p>
+        <div class="au-code" id="auCode"></div>
+        <button class="au-primary" onclick="auVerify()">Verify &amp; continue</button>
+        <div class="au-note">Didn&rsquo;t get it? <a href="#" onclick="auSendCode();return false;" style="color:var(--rosa);font-weight:700">Resend code</a> &middot; <a href="#" onclick="auBack();return false;" style="color:var(--grey)">Change details</a></div>
+      </div>
+      <div class="au-step" id="auStep3">
+        <div class="au-ok"><div class="c">&#10003;</div><h2 id="auOkTitle" style="font-size:22px;font-weight:800">You&rsquo;re all set!</h2><p style="color:var(--grey);margin-top:8px">Your account is verified. Welcome to the TutCasa family.</p></div>
+        <button class="au-primary" onclick="auClose()">Start exploring</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* TutCasa shared i18n — EN / FR / ES */
+window.I18N = {
+  en:{
+    nav_stays:`Stays`, nav_concierge:`Concierge`, nav_tours:`Tours &amp; Parks`, nav_family:`Our Family`,
+    foot_blurb:`A family-run collection of homes across Mexico, Egypt &amp; Florida. Book direct, pay safely, stay like a king.`,
+    foot_explore:`Explore`, foot_popular:`Popular casas`, foot_experiences:`Experiences`, foot_company:`Company`,
+    foot_investors:`Investors`, foot_loyalty:`Loyalty program`, foot_gift:`Gift cards`, foot_list:`List my property`,
+    foot_support:`Support`, foot_help:`Help &amp; policies`, foot_contact:`Contact`, foot_concierge:`Concierge on WhatsApp`,
+    foot_terms:`Terms &amp; conditions`, foot_privacy:`Privacy`, foot_cookies:`Cookies`,
+    wa_title:`Chat with May`, wa_sub:`replies in minutes`,
+    /* our family */
+    fam_eyebrow:`Our story`, fam_h1:`The family behind <span class="rosa">TutCasa.</span>`,
+    fam_lede:`A Canadian&ndash;Egyptian couple who turned a love of travel into a home for every kind of traveller.`,
+    fam_tag:`&#127796; How it started`, fam_story_h:`From one condo to a <span class="em">curated collection.</span>`,
+    fam_p1:`TUT CASA was born from a shared vision between a Canadian&ndash;Egyptian couple with a deep passion for travel and meaningful experiences. What started as finding a way to rent our condo in Playa del Carmen, Mexico quickly grew into something much bigger.`,
+    fam_p2:`As passionate travellers, we saw an opportunity in the vacation rentals market &mdash; one to deliver stays that feel effortless, elevated, and truly memorable for our guests, while maximizing ROI for our home owners, hassle-free.`,
+    fam_p3:`Today, TUT CASA offers a curated collection of 40+ homes in Mareazul, Playa del Carmen and beyond, welcoming 200+ satisfied guests into seamless, home-away-from-home experiences designed for comfort, style, and unforgettable moments.`,
+    fam_sign:`&mdash; The TutCasa family`,
+    fam_stat1:`homes in our curated collection`, fam_stat2:`satisfied guests welcomed`, fam_stat3:`hands-on, family-run hosting`,
+    fam_val_title:`What we believe`, fam_val_sub:`Every stay should feel effortless for guests and rewarding for owners.`,
+    fam_v1_h:`Effortless &amp; elevated`, fam_v1_p:`Stays that feel curated and calm from the first message to check-out &mdash; no surprises, no friction.`,
+    fam_v2_h:`A real home away from home`, fam_v2_p:`Comfort, style, and the little touches that turn a booking into a memory you keep.`,
+    fam_v3_h:`Owners come first too`, fam_v3_p:`We maximize ROI for our home owners with honest reporting and full-service management &mdash; hassle-free.`,
+    fam_cta_h:`Come stay with the family.`, fam_cta_p:`Find your casa in a few clicks, or list your property with people who treat it like their own.`,
+    fam_cta_b1:`Find a casa`, fam_cta_b2:`List my property`,
+    /* stays */
+    st_h1:`Find your <span class="rosa">casa.</span>`, st_sub:`Search our full collection of homes across Mexico, Egypt &amp; Florida.`,
+    st_where:`Where`, st_addwhere:`Search destinations`, st_where_ph:`Type a city or country…`,
+    st_checkin:`Check in`, st_checkout:`Check out`, st_who:`Who`, st_addguests:`Add guests`,
+    st_adults:`Adults`, st_children:`Children`, st_babies:`Babies`, st_under2:`under 2`, st_guests:`guests`,
+    st_t1a:`Best rate guaranteed`, st_t1b:`&mdash; always below Airbnb`, st_t2:`Free airport pickup`,
+    st_t3:`WhatsApp concierge included`, st_t4:`Tours at partner prices`,
+    st_results:`homes available`, st_allin:`All prices are all-in &mdash; no hidden fees`,
+    st_none:`No homes match these filters yet. Try another destination.`,
+    st_f_all:`All stays`, st_f_beach:`Beachfront`, st_f_pool:`Private pool`, st_f_playa:`Playa del Carmen`,
+    st_f_tulum:`Tulum`, st_f_nuba:`Nuba, Egypt`, st_f_florida:`Florida`, st_f_villas:`Villas`, st_f_pent:`Penthouses`, st_f_family:`Family`,
+    st_beds:`beds`, st_showmap:`Show location`, st_details:`View details`, st_night:`/ night · all-in`,
+    exp_h1:`Explore experiences`, exp_sub:`Tours, parks and adventures across the Riviera Maya &amp; Yucatán — all at partner prices for TutCasa guests.`,
+    exp_explore:`Explore`, exp_f_all:`All`, exp_f_water:`Water &amp; reef`, exp_f_culture:`Culture &amp; ruins`, exp_f_adventure:`Adventure`, exp_f_parks:`Parks`, exp_f_relax:`Relax &amp; VIP`,
+    exp_cta_h:`Ready to book an experience?`, exp_cta_p:`Every tour comes at partner prices — usually well below what the big sites charge.`, exp_cta_b:`See tours &amp; pricing`,
+    list_h1:`List your property with <span class="rosa">TutCasa.</span>`, list_sub:`Earn more, worry less. We handle everything — guests, cleaning, pricing and support — while you watch the ROI.`,
+    list_stat1:`avg. occupancy`, list_stat2:`homes managed`, list_stat3:`guest support`,
+    list_form_h:`Tell us about your place`, list_form_p:`Fill this in and our team will reach out within 24 hours.`,
+    list_f_name:`Your name`, list_f_email:`Email`, list_f_phone:`Phone / WhatsApp`, list_f_loc:`Property location`, list_f_type:`Property type`,
+    list_f_beds:`Bedrooms`, list_f_baths:`Bathrooms`, list_f_guests:`Max guests`, list_f_rate:`Nightly rate you have in mind (optional)`,
+    list_f_amen:`Amenities`, list_f_listed:`Is it listed anywhere today?`, list_f_msg:`Anything else?`, list_f_consent:`I agree to be contacted by TutCasa about managing my property.`,
+    list_submit:`Submit my property`, list_req:`Please complete the required fields.`,
+    list_success_h:`Thank you! &#127881;`, list_success_p:`We&rsquo;ve received your property details. A member of the TutCasa family will reach out within 24 hours.`,
+    list_why_h:`Why owners choose us`, list_w1_h:`Earn more`, list_w1_p:`Smart pricing and direct bookings mean higher net returns than going it alone.`,
+    list_w2_h:`Truly hands-off`, list_w2_p:`Guests, cleaning, check-ins, maintenance and 24/7 support — all handled by us.`,
+    list_w3_h:`Honest reporting`, list_w3_p:`Transparent statements and a real person you can always reach. No surprises.`,
+    list_type_condo:`Condo`, list_type_villa:`Villa`, list_type_pent:`Penthouse`, list_type_house:`House`, list_type_other:`Other`,
+    list_listed_airbnb:`Airbnb`, list_listed_vrbo:`Vrbo`, list_listed_both:`Both`, list_listed_no:`Not yet`,
+    list_am_pool:`Pool`, list_am_parking:`Parking`, list_am_ac:`Air conditioning`, list_am_wifi:`Wi-Fi`, list_am_gym:`Gym`,
+    list_choose:`Choose…`,
+    nav_back:`Back`,
+    home_aud_stay:`Find a casa`, home_aud_own:`I own a casa`,
+    home_h1:`Find your casa in <span class="rosa">3 clicks.</span>`,
+    home_sub:`No endless scrolling. Tell us how you travel — we&rsquo;ll match you with the right home. &#127796;`,
+    home_guide:`Guide me`, home_search:`Search`,
+    home_eyb_fav:`GUEST FAVOURITES`, home_pop_casas:`Popular casas`,
+    home_eyb_book:`BOOK ALONGSIDE YOUR STAY`, home_pop_exp:`Popular experiences`,
+    home_seeall_props:`See all our properties &rarr;`, home_seeall_exp:`See all experiences &rarr;`,
+    home_familia_h:`You&rsquo;re not booking a listing. <span class="em">You&rsquo;re staying with us.</span>`,
+    home_loved:`Loved by real guests`,
+    exp_build_h:`Want something totally your own?`, exp_build_p:`Build your own private tour and we&rsquo;ll design a custom itinerary and quote &mdash; just for you.`,
+    exp_build_b:`Build my own Tour`,
+    byo_h:`Build Your Own Plan`, byo_sub:`Share your trip details and we&rsquo;ll design a fully custom itinerary and quote &mdash; just for you.`,
+    byo_trip:`YOUR TRIP DETAILS`, byo_ci:`Check-in`, byo_co:`Check-out`, byo_adults:`Adults`, byo_children:`Children`,
+    byo_accom:`Accommodation`, byo_yes:`Yes`, byo_no:`No`, byo_browse:`Tap to browse activities`,
+    byo_dream:`WHAT ARE YOU DREAMING OF?`, byo_dream_ph:`Tell us what you&rsquo;d love to do — ruins, beaches, adventure, relaxation, a special celebration…`,
+    byo_pick:`Select anything that catches your eye — we&rsquo;ll include exact pricing in your custom quote.`,
+    byo_submit:`Get in Touch to Build My Plan`, byo_onreq:`On Request`, byo_person:`MXN/person`,
+    byo_ok_h:`Your plan request is in! &#127881;`, byo_ok_p:`We&rsquo;ll design your custom itinerary and quote and reach out within 24 hours.`,
+    list_am_tennis:`Tennis courts`, list_am_spa:`Spa`, list_am_kids:`Kids playground`,
+    list_f_photos:`Photos of your property (up to 20)`, list_photos_hint:`Drag &amp; drop or tap to add &mdash; JPG or PNG`
+  },
+  fr:{
+    nav_stays:`Séjours`, nav_concierge:`Conciergerie`, nav_tours:`Excursions &amp; Parcs`, nav_family:`Notre famille`,
+    foot_blurb:`Une collection familiale de maisons au Mexique, en Égypte et en Floride. Réservez en direct, payez en toute sécurité, vivez comme un roi.`,
+    foot_explore:`Explorer`, foot_popular:`Casas populaires`, foot_experiences:`Expériences`, foot_company:`Entreprise`,
+    foot_investors:`Investisseurs`, foot_loyalty:`Programme de fidélité`, foot_gift:`Cartes-cadeaux`, foot_list:`Proposer mon bien`,
+    foot_support:`Aide`, foot_help:`Aide &amp; conditions`, foot_contact:`Contact`, foot_concierge:`Conciergerie sur WhatsApp`,
+    foot_terms:`Conditions générales`, foot_privacy:`Confidentialité`, foot_cookies:`Cookies`,
+    wa_title:`Discuter avec May`, wa_sub:`répond en quelques minutes`,
+    fam_eyebrow:`Notre histoire`, fam_h1:`La famille derrière <span class="rosa">TutCasa.</span>`,
+    fam_lede:`Un couple canado-égyptien qui a transformé son amour du voyage en un chez-soi pour chaque voyageur.`,
+    fam_tag:`&#127796; Comment tout a commencé`, fam_story_h:`D’un seul condo à une <span class="em">collection soignée.</span>`,
+    fam_p1:`TUT CASA est née d’une vision partagée par un couple canado-égyptien animé par une profonde passion pour le voyage et les expériences qui ont du sens. Ce qui a commencé comme une simple façon de louer notre condo à Playa del Carmen, au Mexique, est vite devenu bien plus grand.`,
+    fam_p2:`Voyageurs passionnés, nous avons vu une opportunité sur le marché de la location de vacances : offrir des séjours fluides, raffinés et véritablement mémorables à nos voyageurs, tout en maximisant le rendement de nos propriétaires — sans le moindre tracas.`,
+    fam_p3:`Aujourd’hui, TUT CASA propose une collection soignée de plus de 40 maisons à Mareazul, Playa del Carmen et au-delà, accueillant plus de 200 voyageurs satisfaits dans des expériences fluides, comme à la maison, pensées pour le confort, le style et les moments inoubliables.`,
+    fam_sign:`— La famille TutCasa`,
+    fam_stat1:`maisons dans notre collection soignée`, fam_stat2:`voyageurs satisfaits accueillis`, fam_stat3:`un accueil familial et impliqué`,
+    fam_val_title:`Ce en quoi nous croyons`, fam_val_sub:`Chaque séjour doit être simple pour les voyageurs et rentable pour les propriétaires.`,
+    fam_v1_h:`Simple &amp; raffiné`, fam_v1_p:`Des séjours soignés et sereins, du premier message au départ — sans surprise, sans friction.`,
+    fam_v2_h:`Un vrai chez-soi loin de chez soi`, fam_v2_p:`Confort, style et ces petites attentions qui transforment une réservation en souvenir.`,
+    fam_v3_h:`Les propriétaires aussi comptent`, fam_v3_p:`Nous maximisons le rendement de nos propriétaires avec des rapports transparents et une gestion clé en main — sans tracas.`,
+    fam_cta_h:`Venez séjourner en famille.`, fam_cta_p:`Trouvez votre casa en quelques clics, ou confiez votre bien à des gens qui en prennent soin comme du leur.`,
+    fam_cta_b1:`Trouver une casa`, fam_cta_b2:`Proposer mon bien`,
+    st_h1:`Trouvez votre <span class="rosa">casa.</span>`, st_sub:`Parcourez toute notre collection de maisons au Mexique, en Égypte et en Floride.`,
+    st_where:`Où`, st_addwhere:`Rechercher une destination`, st_where_ph:`Saisissez une ville ou un pays…`,
+    st_checkin:`Arrivée`, st_checkout:`Départ`, st_who:`Qui`, st_addguests:`Ajouter des voyageurs`,
+    st_adults:`Adultes`, st_children:`Enfants`, st_babies:`Bébés`, st_under2:`moins de 2 ans`, st_guests:`voyageurs`,
+    st_t1a:`Meilleur tarif garanti`, st_t1b:`— toujours sous Airbnb`, st_t2:`Transfert aéroport gratuit`,
+    st_t3:`Conciergerie WhatsApp incluse`, st_t4:`Excursions à prix partenaires`,
+    st_results:`maisons disponibles`, st_allin:`Tous les prix sont tout compris — sans frais cachés`,
+    st_none:`Aucune maison ne correspond à ces filtres. Essayez une autre destination.`,
+    st_f_all:`Tous les séjours`, st_f_beach:`Bord de mer`, st_f_pool:`Piscine privée`, st_f_playa:`Playa del Carmen`,
+    st_f_tulum:`Tulum`, st_f_nuba:`Nuba, Égypte`, st_f_florida:`Floride`, st_f_villas:`Villas`, st_f_pent:`Penthouses`, st_f_family:`Familial`,
+    st_beds:`chambres`, st_showmap:`Voir l’emplacement`, st_details:`Voir les détails`, st_night:`/ nuit · tout compris`,
+    exp_h1:`Explorer les expériences`, exp_sub:`Excursions, parcs et aventures dans la Riviera Maya et le Yucatán — à prix partenaires pour les voyageurs TutCasa.`,
+    exp_explore:`Explorer`, exp_f_all:`Tout`, exp_f_water:`Mer &amp; récif`, exp_f_culture:`Culture &amp; ruines`, exp_f_adventure:`Aventure`, exp_f_parks:`Parcs`, exp_f_relax:`Détente &amp; VIP`,
+    exp_cta_h:`Prêt à réserver une expérience ?`, exp_cta_p:`Chaque excursion est à prix partenaire — souvent bien en dessous des grands sites.`, exp_cta_b:`Voir les excursions &amp; tarifs`,
+    list_h1:`Confiez votre bien à <span class="rosa">TutCasa.</span>`, list_sub:`Gagnez plus, sans souci. Nous gérons tout — voyageurs, ménage, tarifs et assistance — pendant que vous suivez le rendement.`,
+    list_stat1:`taux d’occupation moyen`, list_stat2:`maisons gérées`, list_stat3:`assistance voyageurs`,
+    list_form_h:`Parlez-nous de votre bien`, list_form_p:`Remplissez ce formulaire et notre équipe vous recontactera sous 24 heures.`,
+    list_f_name:`Votre nom`, list_f_email:`Courriel`, list_f_phone:`Téléphone / WhatsApp`, list_f_loc:`Emplacement du bien`, list_f_type:`Type de bien`,
+    list_f_beds:`Chambres`, list_f_baths:`Salles de bain`, list_f_guests:`Voyageurs max`, list_f_rate:`Tarif par nuit envisagé (optionnel)`,
+    list_f_amen:`Équipements`, list_f_listed:`Est-il déjà listé quelque part ?`, list_f_msg:`Autre chose ?`, list_f_consent:`J’accepte d’être contacté par TutCasa au sujet de la gestion de mon bien.`,
+    list_submit:`Envoyer mon bien`, list_req:`Veuillez remplir les champs obligatoires.`,
+    list_success_h:`Merci ! &#127881;`, list_success_p:`Nous avons bien reçu les détails de votre bien. Un membre de la famille TutCasa vous recontactera sous 24 heures.`,
+    list_why_h:`Pourquoi les propriétaires nous choisissent`, list_w1_h:`Gagnez plus`, list_w1_p:`Une tarification intelligente et des réservations directes pour un rendement net supérieur.`,
+    list_w2_h:`Vraiment sans effort`, list_w2_p:`Voyageurs, ménage, arrivées, entretien et assistance 24/7 — tout est géré par nous.`,
+    list_w3_h:`Rapports transparents`, list_w3_p:`Des relevés clairs et une vraie personne toujours joignable. Aucune surprise.`,
+    list_type_condo:`Condo`, list_type_villa:`Villa`, list_type_pent:`Penthouse`, list_type_house:`Maison`, list_type_other:`Autre`,
+    list_listed_airbnb:`Airbnb`, list_listed_vrbo:`Vrbo`, list_listed_both:`Les deux`, list_listed_no:`Pas encore`,
+    list_am_pool:`Piscine`, list_am_parking:`Stationnement`, list_am_ac:`Climatisation`, list_am_wifi:`Wi-Fi`, list_am_gym:`Salle de sport`,
+    list_choose:`Choisir…`,
+    nav_back:`Retour`,
+    home_aud_stay:`Trouver une casa`, home_aud_own:`Je possède une casa`,
+    home_h1:`Trouvez votre casa en <span class="rosa">3 clics.</span>`,
+    home_sub:`Fini le défilement sans fin. Dites-nous comment vous voyagez — nous trouverons la maison idéale. &#127796;`,
+    home_guide:`Guidez-moi`, home_search:`Recherche`,
+    home_eyb_fav:`COUPS DE CŒUR`, home_pop_casas:`Casas populaires`,
+    home_eyb_book:`À RÉSERVER AVEC VOTRE SÉJOUR`, home_pop_exp:`Expériences populaires`,
+    home_seeall_props:`Voir toutes nos propriétés &rarr;`, home_seeall_exp:`Voir toutes les expériences &rarr;`,
+    home_familia_h:`Vous ne réservez pas une annonce. <span class="em">Vous séjournez avec nous.</span>`,
+    home_loved:`Adoré par de vrais voyageurs`,
+    exp_build_h:`Envie de quelque chose de vraiment unique ?`, exp_build_p:`Composez votre excursion privée et nous concevrons un itinéraire et un devis sur mesure — rien que pour vous.`,
+    exp_build_b:`Composer mon excursion`,
+    byo_h:`Composez votre programme`, byo_sub:`Partagez les détails de votre voyage et nous concevrons un itinéraire et un devis entièrement personnalisés — rien que pour vous.`,
+    byo_trip:`DÉTAILS DE VOTRE VOYAGE`, byo_ci:`Arrivée`, byo_co:`Départ`, byo_adults:`Adultes`, byo_children:`Enfants`,
+    byo_accom:`Hébergement`, byo_yes:`Oui`, byo_no:`Non`, byo_browse:`Touchez pour parcourir les activités`,
+    byo_dream:`DE QUOI RÊVEZ-VOUS ?`, byo_dream_ph:`Dites-nous ce que vous aimeriez faire — ruines, plages, aventure, détente, une célébration spéciale…`,
+    byo_pick:`Sélectionnez ce qui vous plaît — nous inclurons les prix exacts dans votre devis personnalisé.`,
+    byo_submit:`Contactez-nous pour créer mon programme`, byo_onreq:`Sur demande`, byo_person:`MXN/pers.`,
+    byo_ok_h:`Votre demande est envoyée ! &#127881;`, byo_ok_p:`Nous concevrons votre itinéraire et devis sur mesure et vous recontacterons sous 24 heures.`,
+    list_am_tennis:`Courts de tennis`, list_am_spa:`Spa`, list_am_kids:`Aire de jeux`,
+    list_f_photos:`Photos de votre bien (jusqu’à 20)`, list_photos_hint:`Glissez-déposez ou touchez pour ajouter — JPG ou PNG`
+  },
+  es:{
+    nav_stays:`Estancias`, nav_concierge:`Conserjería`, nav_tours:`Tours y Parques`, nav_family:`Nuestra familia`,
+    foot_blurb:`Una colección familiar de casas en México, Egipto y Florida. Reserva directo, paga seguro, hospédate como un rey.`,
+    foot_explore:`Explorar`, foot_popular:`Casas populares`, foot_experiences:`Experiencias`, foot_company:`Empresa`,
+    foot_investors:`Inversores`, foot_loyalty:`Programa de lealtad`, foot_gift:`Tarjetas de regalo`, foot_list:`Publicar mi propiedad`,
+    foot_support:`Soporte`, foot_help:`Ayuda y políticas`, foot_contact:`Contacto`, foot_concierge:`Conserjería por WhatsApp`,
+    foot_terms:`Términos y condiciones`, foot_privacy:`Privacidad`, foot_cookies:`Cookies`,
+    wa_title:`Chatea con May`, wa_sub:`responde en minutos`,
+    fam_eyebrow:`Nuestra historia`, fam_h1:`La familia detrás de <span class="rosa">TutCasa.</span>`,
+    fam_lede:`Una pareja canadiense-egipcia que convirtió su amor por viajar en un hogar para cada tipo de viajero.`,
+    fam_tag:`&#127796; Cómo empezó`, fam_story_h:`De un solo condominio a una <span class="em">colección cuidada.</span>`,
+    fam_p1:`TUT CASA nació de una visión compartida por una pareja canadiense-egipcia con una profunda pasión por los viajes y las experiencias con significado. Lo que empezó como una forma de alquilar nuestro condominio en Playa del Carmen, México, pronto creció hasta convertirse en algo mucho más grande.`,
+    fam_p2:`Como viajeros apasionados, vimos una oportunidad en el mercado de las rentas vacacionales: ofrecer estancias que se sienten sencillas, elevadas y verdaderamente memorables para nuestros huéspedes, maximizando a la vez el rendimiento de nuestros propietarios, sin complicaciones.`,
+    fam_p3:`Hoy, TUT CASA ofrece una colección cuidada de más de 40 casas en Mareazul, Playa del Carmen y más allá, dando la bienvenida a más de 200 huéspedes satisfechos a experiencias fluidas, como un hogar fuera de casa, diseñadas para el confort, el estilo y los momentos inolvidables.`,
+    fam_sign:`— La familia TutCasa`,
+    fam_stat1:`casas en nuestra colección cuidada`, fam_stat2:`huéspedes satisfechos recibidos`, fam_stat3:`hospedaje familiar y cercano`,
+    fam_val_title:`En qué creemos`, fam_val_sub:`Cada estancia debe ser sencilla para los huéspedes y rentable para los propietarios.`,
+    fam_v1_h:`Sencillo y elevado`, fam_v1_p:`Estancias cuidadas y tranquilas, desde el primer mensaje hasta la salida, sin sorpresas ni fricciones.`,
+    fam_v2_h:`Un verdadero hogar fuera de casa`, fam_v2_p:`Confort, estilo y esos pequeños detalles que convierten una reserva en un recuerdo.`,
+    fam_v3_h:`Los propietarios también importan`, fam_v3_p:`Maximizamos el rendimiento de nuestros propietarios con informes honestos y gestión integral, sin complicaciones.`,
+    fam_cta_h:`Ven a hospedarte con la familia.`, fam_cta_p:`Encuentra tu casa en unos clics, o publica tu propiedad con quienes la cuidan como propia.`,
+    fam_cta_b1:`Encontrar una casa`, fam_cta_b2:`Publicar mi propiedad`,
+    st_h1:`Encuentra tu <span class="rosa">casa.</span>`, st_sub:`Explora toda nuestra colección de casas en México, Egipto y Florida.`,
+    st_where:`Dónde`, st_addwhere:`Buscar destinos`, st_where_ph:`Escribe una ciudad o país…`,
+    st_checkin:`Entrada`, st_checkout:`Salida`, st_who:`Quién`, st_addguests:`Añadir huéspedes`,
+    st_adults:`Adultos`, st_children:`Niños`, st_babies:`Bebés`, st_under2:`menores de 2`, st_guests:`huéspedes`,
+    st_t1a:`Mejor tarifa garantizada`, st_t1b:`— siempre por debajo de Airbnb`, st_t2:`Transporte gratis del aeropuerto`,
+    st_t3:`Conserjería por WhatsApp incluida`, st_t4:`Tours a precios de socio`,
+    st_results:`casas disponibles`, st_allin:`Todos los precios son todo incluido, sin cargos ocultos`,
+    st_none:`Ninguna casa coincide con estos filtros. Prueba otro destino.`,
+    st_f_all:`Todas las estancias`, st_f_beach:`Frente al mar`, st_f_pool:`Piscina privada`, st_f_playa:`Playa del Carmen`,
+    st_f_tulum:`Tulum`, st_f_nuba:`Nuba, Egipto`, st_f_florida:`Florida`, st_f_villas:`Villas`, st_f_pent:`Áticos`, st_f_family:`Familiar`,
+    st_beds:`habitaciones`, st_showmap:`Ver ubicación`, st_details:`Ver detalles`, st_night:`/ noche · todo incluido`,
+    exp_h1:`Explora experiencias`, exp_sub:`Tours, parques y aventuras por la Riviera Maya y Yucatán — a precios de socio para los huéspedes de TutCasa.`,
+    exp_explore:`Explorar`, exp_f_all:`Todo`, exp_f_water:`Mar y arrecife`, exp_f_culture:`Cultura y ruinas`, exp_f_adventure:`Aventura`, exp_f_parks:`Parques`, exp_f_relax:`Relax y VIP`,
+    exp_cta_h:`¿Listo para reservar una experiencia?`, exp_cta_p:`Cada tour es a precio de socio — normalmente muy por debajo de los grandes sitios.`, exp_cta_b:`Ver tours y precios`,
+    list_h1:`Publica tu propiedad con <span class="rosa">TutCasa.</span>`, list_sub:`Gana más, preocúpate menos. Nos encargamos de todo — huéspedes, limpieza, precios y soporte — mientras tú ves el rendimiento.`,
+    list_stat1:`ocupación promedio`, list_stat2:`casas gestionadas`, list_stat3:`soporte a huéspedes`,
+    list_form_h:`Cuéntanos sobre tu propiedad`, list_form_p:`Completa esto y nuestro equipo te contactará en 24 horas.`,
+    list_f_name:`Tu nombre`, list_f_email:`Correo`, list_f_phone:`Teléfono / WhatsApp`, list_f_loc:`Ubicación de la propiedad`, list_f_type:`Tipo de propiedad`,
+    list_f_beds:`Habitaciones`, list_f_baths:`Baños`, list_f_guests:`Huéspedes máx`, list_f_rate:`Tarifa por noche que tienes en mente (opcional)`,
+    list_f_amen:`Comodidades`, list_f_listed:`¿Está publicada en algún lado hoy?`, list_f_msg:`¿Algo más?`, list_f_consent:`Acepto que TutCasa me contacte sobre la gestión de mi propiedad.`,
+    list_submit:`Enviar mi propiedad`, list_req:`Por favor completa los campos obligatorios.`,
+    list_success_h:`¡Gracias! &#127881;`, list_success_p:`Hemos recibido los datos de tu propiedad. Un miembro de la familia TutCasa te contactará en 24 horas.`,
+    list_why_h:`Por qué los propietarios nos eligen`, list_w1_h:`Gana más`, list_w1_p:`Precios inteligentes y reservas directas para un rendimiento neto mayor.`,
+    list_w2_h:`Realmente sin esfuerzo`, list_w2_p:`Huéspedes, limpieza, entradas, mantenimiento y soporte 24/7 — todo lo gestionamos nosotros.`,
+    list_w3_h:`Informes honestos`, list_w3_p:`Estados de cuenta claros y una persona real siempre disponible. Sin sorpresas.`,
+    list_type_condo:`Condominio`, list_type_villa:`Villa`, list_type_pent:`Penthouse`, list_type_house:`Casa`, list_type_other:`Otro`,
+    list_listed_airbnb:`Airbnb`, list_listed_vrbo:`Vrbo`, list_listed_both:`Ambos`, list_listed_no:`Todavía no`,
+    list_am_pool:`Alberca`, list_am_parking:`Estacionamiento`, list_am_ac:`Aire acondicionado`, list_am_wifi:`Wi-Fi`, list_am_gym:`Gimnasio`,
+    list_choose:`Elegir…`,
+    nav_back:`Volver`,
+    home_aud_stay:`Encontrar una casa`, home_aud_own:`Tengo una casa`,
+    home_h1:`Encuentra tu casa en <span class="rosa">3 clics.</span>`,
+    home_sub:`Sin scroll interminable. Dinos cómo viajas y te encontramos la casa ideal. &#127796;`,
+    home_guide:`Guíame`, home_search:`Buscar`,
+    home_eyb_fav:`FAVORITOS`, home_pop_casas:`Casas populares`,
+    home_eyb_book:`RESERVA JUNTO A TU ESTANCIA`, home_pop_exp:`Experiencias populares`,
+    home_seeall_props:`Ver todas nuestras propiedades &rarr;`, home_seeall_exp:`Ver todas las experiencias &rarr;`,
+    home_familia_h:`No estás reservando un anuncio. <span class="em">Te hospedas con nosotros.</span>`,
+    home_loved:`Amado por huéspedes reales`,
+    exp_build_h:`¿Quieres algo totalmente a tu medida?`, exp_build_p:`Arma tu propio tour privado y diseñaremos un itinerario y cotización a medida — solo para ti.`,
+    exp_build_b:`Armar mi propio tour`,
+    byo_h:`Arma tu propio plan`, byo_sub:`Comparte los detalles de tu viaje y diseñaremos un itinerario y cotización totalmente a medida — solo para ti.`,
+    byo_trip:`DETALLES DE TU VIAJE`, byo_ci:`Entrada`, byo_co:`Salida`, byo_adults:`Adultos`, byo_children:`Niños`,
+    byo_accom:`Alojamiento`, byo_yes:`Sí`, byo_no:`No`, byo_browse:`Toca para explorar actividades`,
+    byo_dream:`¿CON QUÉ ESTÁS SOÑANDO?`, byo_dream_ph:`Cuéntanos qué te encantaría hacer — ruinas, playas, aventura, relax, una celebración especial…`,
+    byo_pick:`Selecciona lo que te llame la atención — incluiremos los precios exactos en tu cotización.`,
+    byo_submit:`Contáctanos para armar mi plan`, byo_onreq:`Bajo petición`, byo_person:`MXN/persona`,
+    byo_ok_h:`¡Tu solicitud está lista! &#127881;`, byo_ok_p:`Diseñaremos tu itinerario y cotización a medida y te contactaremos en 24 horas.`,
+    list_am_tennis:`Canchas de tenis`, list_am_spa:`Spa`, list_am_kids:`Juegos para niños`,
+    list_f_photos:`Fotos de tu propiedad (hasta 20)`, list_photos_hint:`Arrastra y suelta o toca para añadir — JPG o PNG`
+  }
+};
+
+window.__lang = 'en';
+function applyLang(lang){
+  if(!window.I18N[lang]) lang='en';
+  window.__lang = lang;
+  var dict = window.I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n'); if(dict[k]!==undefined) el.innerHTML=dict[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-ph'); if(dict[k]!==undefined) el.setAttribute('placeholder', dict[k].replace(/&hellip;/g,'…'));
+  });
+  var lbl=document.getElementById('langLabel'); if(lbl) lbl.textContent=lang.toUpperCase();
+  document.documentElement.lang=lang;
+  document.querySelectorAll('a[href$=".html"], a[href*=".html?"]').forEach(function(a){
+    var href=a.getAttribute('href'); if(!href) return; var base=href.split('?')[0]; a.setAttribute('href', base+'?lang='+lang);
+  });
+  if(typeof window.onLangApplied==='function') window.onLangApplied();
+}
+function setLang(l){ applyLang(l); var m=document.getElementById('langMenu'); if(m) m.classList.remove('open'); }
+(function(){
+  var url=new URLSearchParams(location.search).get('lang');
+  applyLang(url||'en');
+})();
+
+</script>
+<script>function toggleAcct(e){ e.stopPropagation(); document.getElementById('acctMenu').classList.toggle('open'); document.getElementById('langMenu').classList.remove('open'); }
+function toggleLang(e){ e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open'); document.getElementById('acctMenu').classList.remove('open'); }
+document.addEventListener('click',function(){ document.getElementById('acctMenu').classList.remove('open'); document.getElementById('langMenu').classList.remove('open'); });
+var auMode='login';
+function auOpen(m){ auMode=m||'login'; auSwitch(auMode); auGoStep(1); document.getElementById('auOv').classList.add('open'); var am=document.getElementById('acctMenu'); if(am) am.classList.remove('open'); }
+function auClose(){ document.getElementById('auOv').classList.remove('open'); }
+function auSwitch(m){ auMode=m;
+  document.getElementById('auTabLogin').classList.toggle('on',m==='login');
+  document.getElementById('auTabSignup').classList.toggle('on',m==='signup');
+  document.getElementById('auNameField').style.display=(m==='signup')?'block':'none';
+  document.getElementById('auTitle').textContent=(m==='signup')?'Create your account':'Welcome back';
+  document.getElementById('auSub').textContent=(m==='signup')?'Join the TutCasa family and book like a king.':'Log in to book faster and track your trips.';
+  document.getElementById('auPrimaryLabel').textContent=(m==='signup')?'Create account':'Log in';
+}
+function auGoStep(n){ [1,2,3].forEach(function(i){ document.getElementById('auStep'+i).classList.toggle('on',i===n); }); }
+function auSocial(p){ document.getElementById('auPhoneEcho').textContent='your phone'; alert('Continue with '+p+' connects to '+p+' sign-in at the backend step. We will still verify your phone number by SMS.'); auGoStep(2); auFocusCode(); }
+function auSendCode(){ var ph=(document.getElementById('auPhone').value||'').trim(); var cc=document.getElementById('auCC').value; if(!ph){ document.getElementById('auPhone').focus(); return; } document.getElementById('auPhoneEcho').textContent=cc+' '+ph; auGoStep(2); auFocusCode(); }
+function auVerify(){ auGoStep(3); document.getElementById('auOkTitle').textContent=(auMode==='signup')?'Welcome to TutCasa!':'You are logged in!'; }
+function auBack(){ auGoStep(1); }
+function auFocusCode(){ setTimeout(function(){ var f=document.querySelector('#auCode input'); if(f) f.focus(); },60); }
+(function(){ var box=document.getElementById('auCode'); if(!box) return; box.innerHTML='';
+  for(var i=0;i<6;i++){ var inp=document.createElement('input'); inp.maxLength=1; inp.setAttribute('inputmode','numeric');
+    inp.addEventListener('input',function(){ if(this.value&&this.nextElementSibling) this.nextElementSibling.focus(); });
+    inp.addEventListener('keydown',function(e){ if(e.key==='Backspace'&&!this.value&&this.previousElementSibling) this.previousElementSibling.focus(); });
+    box.appendChild(inp); } })();
+var RATE=17;
+function money(x){ return Number(x).toLocaleString('en-US'); }
+function getItems(){ try{ var p=new URLSearchParams(location.search).get('items'); return p?JSON.parse(p):[]; }catch(e){ return []; } }
+function renderCart(){
+  var items=getItems(), box=document.getElementById('cartLines'), total=0;
+  if(!items.length){ document.getElementById('checkoutMain').style.display='none'; document.getElementById('emptyCart').style.display='block'; return; }
+  box.innerHTML='';
+  items.forEach(function(it){ total+=Number(it.a)||0; var row=document.createElement('div'); row.className='co-line';
+    row.innerHTML='<div><div class="co-n">'+it.n+'</div><div class="co-m">'+(it.m||'')+'</div></div><div class="co-a">$'+money(it.a)+' MXN</div>'; box.appendChild(row); });
+  var d=new URLSearchParams(location.search).get('dates'); if(d){ document.getElementById('coDates').style.display='block'; document.getElementById('coDatesVal').textContent=d; }
+  document.getElementById('coSubtotal').innerHTML='$'+money(total)+' MXN';
+  document.getElementById('coTotal').innerHTML='$'+money(total)+' MXN';
+  document.getElementById('coUsd').innerHTML='&#8776; '+money(Math.round(total/RATE))+' USD';
+  document.getElementById('payLabel').textContent='Pay $'+money(total)+' MXN';
+  window._coTotal=total;
+}
+function applyPromo(){ if((document.getElementById('promo').value||'').trim()){ document.getElementById('promoMsg').style.display='block'; } }
+function fmtCard(el){ var v=el.value.replace(/[^0-9]/g,'').slice(0,16); var out=''; for(var i=0;i<v.length;i++){ if(i>0&&i%4===0) out+=' '; out+=v[i]; } el.value=out; }
+function fmtExp(el){ var v=el.value.replace(/[^0-9]/g,'').slice(0,4); if(v.length>=3) el.value=v.slice(0,2)+' / '+v.slice(2); else el.value=v; }
+function fmtCvc(el){ el.value=el.value.replace(/[^0-9]/g,'').slice(0,4); }
+function pay(){ document.getElementById('checkoutMain').style.display='none'; document.querySelector('.page-hero').style.display='none'; document.getElementById('paidScreen').style.display='block'; document.getElementById('paidTotal').innerHTML='Paid: $'+money(window._coTotal||0)+' MXN'; window.scrollTo(0,0); }
+renderCart();
+</script>
+<script>
+/* tc-standardized-js : chat + auth (login skips phone; sign-up verifies by SMS) */
+var WA_NUMBER='201069706782';
+function toggleChat(e){if(e)e.stopPropagation(); var c=document.getElementById('mchat'); if(c)c.classList.toggle('open');}
+function waLink(msg){return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);}
+function waPreset(msg){window.open(waLink('Hi May! '+msg+' \u{1F44B}'),'_blank');}
+function sendInPage(){var el=document.getElementById('mchatInput'); var v=(el.value||'').trim(); if(!v)return;
+ var body=document.querySelector('.mchat-body'); var u=document.createElement('div'); u.className='mchat-bubble me'; u.textContent=v; body.appendChild(u);
+ el.value=''; window._mchatLog=(window._mchatLog||[]); window._mchatLog.push(v); body.scrollTop=body.scrollHeight;
+ setTimeout(function(){var r=document.createElement('div'); r.className='mchat-bubble'; r.innerHTML='Got it \u{1F44D} I\u2019ll reply right here \u2014 and this is on its way to my WhatsApp too. Anything else?'; body.appendChild(r); body.scrollTop=body.scrollHeight;},600);}
+function sendChat(){var el=document.getElementById('mchatInput'); var v=el?(el.value||'').trim():''; var log=(window._mchatLog||[]).join('\n'); var txt=log?(log+(v?'\n'+v:'')):v; window.open(waLink(txt?'Hi May! '+txt+' \u{1F44B}':'Hi May! I\u2019d like some help planning my stay \u{1F44B}'),'_blank');}
+document.addEventListener('click',function(){var c=document.getElementById('mchat'); if(c)c.classList.remove('open');});
+/* auth */
+var auMode='login';
+function auOpen(m){auMode=m||'login'; auSwitch(auMode); auGoStep(1); document.getElementById('auOv').classList.add('open'); var am=document.getElementById('acctMenu'); if(am)am.classList.remove('open');}
+function auClose(){document.getElementById('auOv').classList.remove('open');}
+function auSwitch(m){auMode=m; var s=(m==='signup');
+ document.getElementById('auTabLogin').classList.toggle('on',!s);
+ document.getElementById('auTabSignup').classList.toggle('on',s);
+ document.getElementById('auNameField').style.display=s?'block':'none';
+ document.getElementById('auPhoneField').style.display=s?'block':'none';
+ document.getElementById('auSmsNote').style.display=s?'block':'none';
+ document.getElementById('auTitle').textContent=s?'Create your account':'Welcome back';
+ document.getElementById('auSub').textContent=s?'Join the TutCasa family and book like a king.':'Log in to book faster and track your trips.';
+ document.getElementById('auPrimaryLabel').textContent=s?'Create account':'Log in';}
+function auGoStep(n){[1,2,3].forEach(function(i){document.getElementById('auStep'+i).classList.toggle('on',i===n);});}
+function auSubmit(){ if(auMode==='signup'){ auSendCode(); } else { auGoStep(3); document.getElementById('auOkTitle').textContent='You are logged in!'; } }
+function auSocial(p){ if(auMode==='signup'){ alert('Continue with '+p+' connects to '+p+' sign-in at the backend step. We will still verify your phone number by SMS.'); auGoStep(2); auFocusCode(); } else { alert('Continue with '+p+' connects to '+p+' sign-in at the backend step.'); auGoStep(3); document.getElementById('auOkTitle').textContent='You are logged in!'; } }
+function auSendCode(){var ph=(document.getElementById('auPhone').value||'').trim(); var cc=document.getElementById('auCC').value; if(!ph){document.getElementById('auPhone').focus(); return;} document.getElementById('auPhoneEcho').textContent=cc+' '+ph; auGoStep(2); auFocusCode();}
+function auVerify(){auGoStep(3); document.getElementById('auOkTitle').textContent=(auMode==='signup')?'Welcome to TutCasa!':'You are logged in!';}
+function auBack(){auGoStep(1);}
+function auFocusCode(){setTimeout(function(){var f=document.querySelector('#auCode input'); if(f)f.focus();},60);}
+(function(){var box=document.getElementById('auCode'); if(!box)return; box.innerHTML='';
+ for(var i=0;i<6;i++){var inp=document.createElement('input'); inp.maxLength=1; inp.setAttribute('inputmode','numeric');
+  inp.addEventListener('input',function(){if(this.value&&this.nextElementSibling)this.nextElementSibling.focus();});
+  inp.addEventListener('keydown',function(e){if(e.key==='Backspace'&&!this.value&&this.previousElementSibling)this.previousElementSibling.focus();});
+  box.appendChild(inp);} })();
+</script>
+</body>
+</html>
