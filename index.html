@@ -136,15 +136,15 @@ header{background:var(--paper);border-bottom:1px solid var(--line);position:stic
 .who-box{border:1.5px solid var(--line);border-radius:13px;padding:4px 14px;margin-bottom:16px}
 .dest-search{width:100%;border:1.5px solid var(--line);border-radius:13px;padding:11px 14px;font-family:'Outfit';font-size:14.5px;margin-bottom:14px}
 .dest-search:focus{outline:none;border-color:var(--rosa)}
-.result-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.result-cards.scroll{max-height:252px;overflow-y:auto;padding-right:6px;align-content:start}
+.result-cards{display:grid;grid-template-columns:1fr;gap:14px}
+.result-cards.scroll{max-height:520px;overflow-y:auto;padding-right:6px;align-content:start}
 .result-cards.scroll::-webkit-scrollbar{width:8px}
 .result-cards.scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 .result-cards.scroll::-webkit-scrollbar-thumb:hover{background:var(--terra)}
 .result-count{font-size:12.5px;color:var(--grey);font-weight:600;margin:0 0 10px 2px}
 .rc{border:2px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;transition:.15s}
 .rc:hover{transform:translateY(-3px);border-color:var(--terra);box-shadow:var(--shadow)}
-.rc .ph{height:90px;position:relative}
+.rc .ph{height:210px;position:relative;overflow:hidden}
 .rc .ph::after{content:"Photo";position:absolute;right:8px;bottom:8px;font-size:10px;color:rgba(255,255,255,.85);border:1px dashed rgba(255,255,255,.6);border-radius:5px;padding:1px 7px}
 .rc .b{padding:11px 13px}
 .rc h4{font-family:'Baloo 2';font-size:14.5px;line-height:1.2}
@@ -397,6 +397,9 @@ footer{background:var(--ink);color:#EFE3D6;padding:54px 0 40px;font-size:14px;ma
 @media(min-width:721px){.foot-legal{margin-right:230px}}
 @media(max-width:720px){.foot-bottom{flex-direction:column;align-items:center;text-align:center;padding-bottom:96px}.foot-legal a{margin:0 8px}}
 .btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.btn:disabled:hover{background:var(--rosa)}.wz-datehint{text-align:center;font-size:12px;color:var(--grey);font-weight:600;margin-top:9px}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.btn:disabled:hover{background:var(--rosa)}.wz-datehint{text-align:center;font-size:12px;color:var(--grey);font-weight:600;margin-top:9px}
+.rc-btn{display:inline-block;margin-top:10px;background:var(--rosa);color:#fff;border:none;border-radius:999px;padding:8px 16px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none}.rc-btn:hover{background:var(--rosa-deep)}
+.ph-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:var(--ink);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 9px rgba(0,0,0,.2);opacity:0;transition:opacity .15s;z-index:4}.ph-arrow.l{left:10px}.ph-arrow.r{right:10px}.ph-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}.casa-ph:hover .ph-arrow,.rc .ph:hover .ph-arrow{opacity:1}@media(hover:none){.ph-arrow{opacity:1}}.ph-count{position:absolute;right:10px;bottom:10px;background:rgba(58,44,40,.72);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;z-index:4}.ph-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:5px;z-index:4}.ph-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55)}.ph-dot.on{background:#fff}.rc .ph::after,.casa-ph::after{display:none}
 </style>
 
 <style id="tc-fe">
@@ -487,14 +490,12 @@ img{max-width:100%;height:auto}
       <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
     </nav>
     <div class="nav-right">
-      <button class="tcnav-burger" aria-label="Open menu" onclick="tcNavOpen()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       <div class="lang-wrap"><button class="lang" onclick="toggleLang(event)"><span id="langLabel">EN</span> <span style="font-size:10px">&#9662;</span></button>
         <div class="lang-menu" id="langMenu"><a onclick="setLang('en')">&#127468;&#127463; English</a><a onclick="setLang('fr')">&#127467;&#127479; Fran&ccedil;ais</a><a onclick="setLang('es')">&#127474;&#127485; Espa&ntilde;ol</a></div></div>
       <div class="acct-wrap"><button class="tc-btn" onclick="toggleAcct(event)">TC</button>
         <div class="acct-menu" id="acctMenu">
           <a class="strong" href="#" onclick="auOpen('login');return false;">Log in</a>
           <a href="#" onclick="auOpen('signup');return false;">Sign up</a><hr>
-          <a href="wishlist.html">&#10084;&#65039; Wishlist <span class="wcount" id="wcount"></span></a>
           <a href="Stays.html">Stays</a>
           <a href="Tours.html">Tours &amp; Transfers</a>
           <a href="https://wa.me/201069706782" target="_blank" rel="noopener">Concierge on WhatsApp</a>
@@ -778,6 +779,7 @@ img{max-width:100%;height:auto}
     </div>
   </div>
 </div>
+
 
 
 
@@ -1163,14 +1165,14 @@ function results(){
     <div class="wz-q">Perfecto &#127881; Casas made for <span class="em">${vibe}</span> in ${state.dest}:</div>
     <div class="result-count">12 casas match &mdash; scroll to see them all</div>
     <div class="result-cards scroll">
-      <div class="rc"><div class="ph g1"></div><div class="b"><h4>Spiritum Marea</h4><p>2 beds &middot; pool &middot; &#9733; 4.94</p><div class="pr"><b>$160</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g2"></div><div class="b"><h4>Vista Playa</h4><p>3 beds &middot; ocean view &middot; &#9733; 4.87</p><div class="pr"><b>$200</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g3"></div><div class="b"><h4>Casa Selva</h4><p>4 beds &middot; cenote &middot; &#9733; 4.91</p><div class="pr"><b>$320</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g4"></div><div class="b"><h4>Nile Breeze</h4><p>3 beds &middot; terrace &middot; &#9733; 4.96</p><div class="pr"><b>$110</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g2"></div><div class="b"><h4>Palma Azul</h4><p>2 beds &middot; rooftop &middot; &#9733; 4.90</p><div class="pr"><b>$145</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g1"></div><div class="b"><h4>Coral Suite</h4><p>1 bed &middot; beach access &middot; &#9733; 4.85</p><div class="pr"><b>$120</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g4"></div><div class="b"><h4>Villa Maya</h4><p>5 beds &middot; pool &middot; &#9733; 4.98</p><div class="pr"><b>$410</b>/night &middot; all-in</div></div></div>
-      <div class="rc"><div class="ph g3"></div><div class="b"><h4>Jardin Verde</h4><p>3 beds &middot; garden &middot; &#9733; 4.83</p><div class="pr"><b>$175</b>/night &middot; all-in</div></div></div>
+      <div class="rc"><div class="ph g1" data-base="0" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Spiritum Marea</h4><p>2 beds &middot; pool &middot; &#9733; 4.94</p><div class="pr"><b>$160</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=spiritum-marea'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g2" data-base="1" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Vista Playa</h4><p>3 beds &middot; ocean view &middot; &#9733; 4.87</p><div class="pr"><b>$200</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=vista-playa'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g3" data-base="2" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Casa Selva</h4><p>4 beds &middot; cenote &middot; &#9733; 4.91</p><div class="pr"><b>$320</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=casa-selva'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g4" data-base="3" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Nile Breeze</h4><p>3 beds &middot; terrace &middot; &#9733; 4.96</p><div class="pr"><b>$110</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=nile-breeze'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g2" data-base="1" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Palma Azul</h4><p>2 beds &middot; rooftop &middot; &#9733; 4.90</p><div class="pr"><b>$145</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=palma-azul'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g1" data-base="0" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Coral Suite</h4><p>1 bed &middot; beach access &middot; &#9733; 4.85</p><div class="pr"><b>$120</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=coral-suite'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g4" data-base="3" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Villa Maya</h4><p>5 beds &middot; pool &middot; &#9733; 4.98</p><div class="pr"><b>$410</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=villa-maya'">View details &rarr;</a></div></div>
+      <div class="rc"><div class="ph g3" data-base="2" data-idx="0" data-n="5"><button class="ph-arrow l" onclick="photoNav(event,this,-1)">&#8249;</button><button class="ph-arrow r" onclick="photoNav(event,this,1)">&#8250;</button><span class="ph-count">1 / 5</span><span class="ph-dots"><i class="ph-dot on"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i><i class="ph-dot"></i></span></div><div class="b"><h4>Jardin Verde</h4><p>3 beds &middot; garden &middot; &#9733; 4.83</p><div class="pr"><b>$175</b>/night &middot; all-in</div><a class="rc-btn" onclick="location.href='property.html?id=jardin-verde'">View details &rarr;</a></div></div>
     </div>
     <div class="wz-cta">
       <button class="btn btn-rosa" style="width:100%" onclick="goMatches()">See all my matches</button>
@@ -1351,5 +1353,7 @@ function auFocusCode(){setTimeout(function(){var f=document.querySelector('#auCo
   else init();
 })();
 </script>
+<script>function wzCheckDates(){var ci=document.getElementById("ciW"),co=document.getElementById("coW"),b=document.getElementById("wzMatchBtn"),h=document.getElementById("wzDateHint");if(!b)return;var ok=ci&&co&&ci.value&&co.value&&co.value>ci.value;b.disabled=!ok;if(h)h.style.display=ok?"none":"block";}</script>
+<script>function photoNav(ev,btn,dir){if(ev)ev.stopPropagation();var ph=btn.parentElement;var base=parseInt(ph.getAttribute("data-base")||"0",10),idx=parseInt(ph.getAttribute("data-idx")||"0",10),n=parseInt(ph.getAttribute("data-n")||"5",10);idx=(idx+dir+n)%n;ph.setAttribute("data-idx",idx);var g="g"+(((base+idx)%6)+1);ph.className=ph.className.replace(/\bg[1-6]\b/,g);var c=ph.querySelector(".ph-count");if(c)c.textContent=(idx+1)+" / "+n;var d=ph.querySelectorAll(".ph-dot");for(var i=0;i<d.length;i++){d[i].classList.toggle("on",i===idx);}}</script>
 </body>
 </html>
