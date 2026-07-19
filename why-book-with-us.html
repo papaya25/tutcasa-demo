@@ -178,6 +178,7 @@ img{max-width:100%;height:auto}
 @media(max-width:880px){
   .nav-links{display:none!important}
   .nav-right .lang-wrap,.nav-right .acct-wrap{display:none!important}
+  .nav-right{margin-left:auto}
   .tcnav-burger{display:flex}
   .wrap{padding-left:16px;padding-right:16px}
 }
@@ -557,28 +558,7 @@ function setLang(l){ applyLang(l); var m=document.getElementById('langMenu'); if
 <script>function toggleAcct(e){ e.stopPropagation(); document.getElementById('acctMenu').classList.toggle('open'); document.getElementById('langMenu').classList.remove('open'); }
 function toggleLang(e){ e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open'); document.getElementById('acctMenu').classList.remove('open'); }
 document.addEventListener('click',function(){ document.getElementById('acctMenu').classList.remove('open'); document.getElementById('langMenu').classList.remove('open'); });
-var auMode='login';
-function auOpen(m){ auMode=m||'login'; auSwitch(auMode); auGoStep(1); document.getElementById('auOv').classList.add('open'); var am=document.getElementById('acctMenu'); if(am) am.classList.remove('open'); }
-function auClose(){ document.getElementById('auOv').classList.remove('open'); }
-function auSwitch(m){ auMode=m;
-  document.getElementById('auTabLogin').classList.toggle('on',m==='login');
-  document.getElementById('auTabSignup').classList.toggle('on',m==='signup');
-  document.getElementById('auNameField').style.display=(m==='signup')?'block':'none';
-  document.getElementById('auTitle').textContent=(m==='signup')?'Create your account':'Welcome back';
-  document.getElementById('auSub').textContent=(m==='signup')?'Join the TutCasa family and book like a king.':'Log in to book faster and track your trips.';
-  document.getElementById('auPrimaryLabel').textContent=(m==='signup')?'Create account':'Log in';
-}
-function auGoStep(n){ [1,2,3].forEach(function(i){ document.getElementById('auStep'+i).classList.toggle('on',i===n); }); }
-function auSocial(p){ document.getElementById('auPhoneEcho').textContent='your phone'; alert('Continue with '+p+' connects to '+p+' sign-in at the backend step. We will still verify your phone number by SMS.'); auGoStep(2); auFocusCode(); }
-function auSendCode(){ var ph=(document.getElementById('auPhone').value||'').trim(); var cc=document.getElementById('auCC').value; if(!ph){ document.getElementById('auPhone').focus(); return; } document.getElementById('auPhoneEcho').textContent=cc+' '+ph; auGoStep(2); auFocusCode(); }
-function auVerify(){ auGoStep(3); document.getElementById('auOkTitle').textContent=(auMode==='signup')?'Welcome to TutCasa!':'You are logged in!'; }
-function auBack(){ auGoStep(1); }
-function auFocusCode(){ setTimeout(function(){ var f=document.querySelector('#auCode input'); if(f) f.focus(); },60); }
-(function(){ var box=document.getElementById('auCode'); if(!box) return; box.innerHTML='';
-  for(var i=0;i<6;i++){ var inp=document.createElement('input'); inp.maxLength=1; inp.setAttribute('inputmode','numeric');
-    inp.addEventListener('input',function(){ if(this.value&&this.nextElementSibling) this.nextElementSibling.focus(); });
-    inp.addEventListener('keydown',function(e){ if(e.key==='Backspace'&&!this.value&&this.previousElementSibling) this.previousElementSibling.focus(); });
-    box.appendChild(inp); } })();</script>
+</script>
 <script>
 /* tc-standardized-js : chat + auth (login skips phone; sign-up verifies by SMS) */
 var WA_NUMBER='201069706782';
