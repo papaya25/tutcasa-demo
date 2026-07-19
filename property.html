@@ -388,6 +388,7 @@ img{max-width:100%;height:auto}
       <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
     </nav>
     <div class="nav-right">
+      <button class="tcnav-burger" aria-label="Open menu" onclick="tcNavOpen()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       <div class="lang-wrap"><button class="lang" onclick="toggleLang(event)"><span id="langLabel">EN</span> <span style="font-size:10px">&#9662;</span></button>
         <div class="lang-menu" id="langMenu"><a onclick="setLang('en')">&#127468;&#127463; English</a><a onclick="setLang('fr')">&#127467;&#127479; Fran&ccedil;ais</a><a onclick="setLang('es')">&#127474;&#127485; Espa&ntilde;ol</a></div></div>
       <div class="acct-wrap"><button class="tc-btn" onclick="toggleAcct(event)">TC</button>
@@ -781,6 +782,53 @@ function auFocusCode(){setTimeout(function(){var f=document.querySelector('#auCo
   inp.addEventListener('input',function(){if(this.value&&this.nextElementSibling)this.nextElementSibling.focus();});
   inp.addEventListener('keydown',function(e){if(e.key==='Backspace'&&!this.value&&this.previousElementSibling)this.previousElementSibling.focus();});
   box.appendChild(inp);} })();
+</script>
+
+<!-- TC mobile nav drawer -->
+<div class="tcnav-scrim" id="tcnavScrim" onclick="tcNavClose()"></div>
+<aside class="tcnav-drawer" id="tcnavDrawer" aria-label="Menu">
+  <div class="tcnav-top">
+    <span class="logo-word">TUT CASA<small>A king in your own house</small></span>
+    <button class="tcnav-close" onclick="tcNavClose()" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="tcnav-links">
+    <a href="Stays.html"><span class="ni">&#127968;</span><span data-i18n="nav_stays">Stays</span></a>
+    <a href="Concierge.html"><span class="ni">&#128736;&#65039;</span><span data-i18n="nav_concierge">Concierge</span></a>
+    <a href="Experiences.html"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
+    <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
+    <a href="wishlist.html"><span class="ni">&#10084;&#65039;</span>Wishlist <span class="wcount" id="tcnavCount"></span></a>
+  </nav>
+  <hr>
+  <nav class="tcnav-links secondary">
+    <a href="Tours.html">Tours &amp; Transfers</a>
+    <a href="gift-cards.html">Gift cards</a>
+    <a href="Loyalty.html">Loyalty program</a>
+    <a href="why-book-with-us.html">Why book with us</a>
+    <a href="policies.html">Help &amp; policies</a>
+    <a href="https://wa.me/201069706782" target="_blank" rel="noopener">Concierge on WhatsApp</a>
+  </nav>
+  <div class="tcnav-auth">
+    <button onclick="tcNavClose();if(window.auOpen)auOpen('login')">Log in</button>
+    <button class="alt" onclick="tcNavClose();if(window.auOpen)auOpen('signup')">Sign up</button>
+  </div>
+  <div class="tcnav-lang">
+    <a onclick="setLang('en')">&#127468;&#127463; EN</a>
+    <a onclick="setLang('fr')">&#127467;&#127479; FR</a>
+    <a onclick="setLang('es')">&#127474;&#127485; ES</a>
+  </div>
+</aside>
+
+<script id="tc-navdrawer-js">
+/* mobile nav drawer */
+window.tcNavOpen=function(){
+  var d=document.getElementById('tcnavDrawer'), s=document.getElementById('tcnavScrim');
+  if(d)d.classList.add('open'); if(s)s.classList.add('open'); document.body.style.overflow='hidden';
+};
+window.tcNavClose=function(){
+  var d=document.getElementById('tcnavDrawer'), s=document.getElementById('tcnavScrim');
+  if(d)d.classList.remove('open'); if(s)s.classList.remove('open'); document.body.style.overflow='';
+};
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') tcNavClose(); });
 </script>
 </body>
 </html>
