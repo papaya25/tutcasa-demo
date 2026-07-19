@@ -856,19 +856,35 @@ var PARKS=[
    desc:'The Riviera&rsquo;s great waterpark &mdash; wave river, giant slides and jungle cabanas for the whole family.', stops:[]}
 ];
 PARKS.forEach(function(p){TOURS.push(p);});
-/* add-on activities shown inside each tour card */
+/* add-on activities shown inside each tour card \u2014 full catalog, same as Build Your Own */
 var ADDONS=[
+  {n:'Chich\u00e9n + Valladolid',ic:'&#127963;&#65039;',price:6600},
+  {n:'Tulum &amp; Cenotes Tour',ic:'&#127754;',price:3700},
+  {n:'Cob&aacute; &amp; Cenotes Tour',ic:'&#127963;&#65039;',price:3900},
+  {n:'Tulum + Akumal',ic:'&#128034;',price:5850},
+  {n:'Akumal &amp; Cenotes Tour',ic:'&#128034;',price:2350},
+  {n:'Canc&uacute;n City Tour',ic:'&#127961;&#65039;',price:800},
+  {n:'Quinta Av Guided Tour',ic:'&#128717;&#65039;',price:500},
+  {n:'Canc&uacute;n Aquarium',ic:'&#128032;',price:950},
+  {n:'Cozumel Private Tour',ic:'&#9973;',price:4600},
+  {n:'Ruta de los Cenotes Tour',ic:'&#128166;',price:2900},
+  {n:'Cenote Visit',ic:'&#128167;',price:1000},
   {n:'Xcaret Park',ic:'&#127802;',price:3500},
   {n:'Xel-H&aacute; Park',ic:'&#127966;&#65039;',price:2850},
   {n:'Xplor Park',ic:'&#127796;',price:3350},
   {n:'Xplor Fuego',ic:'&#128293;',price:2850},
   {n:'Xenses Park',ic:'&#10024;',price:1850},
   {n:'Jungala Aqua Park',ic:'&#127946;',price:1800},
-  {n:'Canc&uacute;n City Tour',ic:'&#127961;&#65039;',price:800},
-  {n:'Quinta Av Guided Tour',ic:'&#128717;&#65039;',price:500},
-  {n:'Canc&uacute;n Aquarium',ic:'&#128032;',price:950},
-  {n:'Cenote Visit',ic:'&#128167;',price:1000},
-  {n:'Monkey Sanctuary',ic:'&#128018;',price:1900}
+  {n:'Monkey Sanctuary',ic:'&#128018;',price:1900},
+  {n:'Tennis Lessons',ic:'&#127934;',price:800,unit:'MXN/hour/person'},
+  {n:'Isla Contoy',ic:'&#129417;',price:null},
+  {n:'Whale Sharks Tour',ic:'&#128011;',price:null},
+  {n:'Private Yacht',ic:'&#128760;&#65039;',price:null},
+  {n:'Sian Ka&rsquo;an',ic:'&#127807;',price:null},
+  {n:'Zipline &amp; ATV',ic:'&#9889;',price:null},
+  {n:'Photoshoot',ic:'&#127909;',price:null},
+  {n:'Romantic Dinner',ic:'&#127749;',price:null},
+  {n:'Bacalar Lagoon',ic:'&#128153;',price:null}
 ];
 var ttView='tours';
 window.ttSetView=function(v){ ttView=v;
@@ -907,7 +923,9 @@ function buildTours(){
         var rows='';
         ADDONS.forEach(function(x,ai){
           if(t.name.indexOf(x.n.split(' ')[0])>-1) return; /* skip addon matching the tour itself */
-          rows+='<label class="byo-act"><input type="checkbox" class="byo-cb" onchange="ttUpdateTotal('+i+')" data-price="'+x.price+'" data-name="'+x.n.replace(/&amp;/g,'&').replace(/&aacute;/g,'\u00e1').replace(/&uacute;/g,'\u00fa').replace(/&eacute;/g,'\u00e9').replace(/&iacute;/g,'\u00ed')+'"><span class="byo-ic">'+x.ic+'</span><span class="byo-nm">'+x.n+'</span><span class="byo-price">$'+x.price.toLocaleString('en-US')+' MXN/person</span></label>';
+          var cn=x.n.replace(/&amp;/g,'&').replace(/&aacute;/g,'\u00e1').replace(/&uacute;/g,'\u00fa').replace(/&eacute;/g,'\u00e9').replace(/&iacute;/g,'\u00ed').replace(/&rsquo;/g,'\u2019');
+          var badge=x.price!=null?'<span class="byo-price">$'+x.price.toLocaleString('en-US')+' '+(x.unit||'MXN/person')+'</span>':'<span class="byo-onreq">On Request</span>';
+          rows+='<label class="byo-act"><input type="checkbox" class="byo-cb" onchange="ttUpdateTotal('+i+')" data-priced="'+(x.price!=null?'1':'0')+'" data-price="'+(x.price||0)+'" data-name="'+cn+'"><span class="byo-ic">'+x.ic+'</span><span class="byo-nm">'+x.n+'</span>'+badge+'</label>';
         });
         addonsHtml='<button type="button" class="tt-addacts" onclick="ttActsToggle(this,'+i+')"><span>+ Add activities</span><span class="pl">+</span></button>'+
           '<div class="tt-acts" id="acts-'+i+'"><div class="tt-acts-note">Add parks &amp; activities to your trip &mdash; priced per person, bundled into one booking.</div>'+rows+'</div>'+
@@ -929,9 +947,9 @@ function buildTours(){
   if(!grid.children.length){grid.innerHTML='<div class="tt-empty">No '+(ttView==='parks'?'parks':'tours in '+ttTown)+' yet \u2014 coming soon!'+(ttView==='parks'?'':' Switch back to Playa del Carmen to see all our tours.')+'</div>';}
 }
 window.ttToggle=function(b){ var p=b.nextElementSibling; var o=b.classList.toggle('open'); p.style.maxHeight=o?(p.scrollHeight+'px'):'0px'; };
-window.ttSelAddons=function(i){ var out=[]; document.querySelectorAll('#acts-'+i+' .byo-cb:checked').forEach(function(c){ out.push({n:c.dataset.name, p:Number(c.dataset.price)}); }); return out; };
+window.ttSelAddons=function(i){ var out=[]; document.querySelectorAll('#acts-'+i+' .byo-cb:checked').forEach(function(c){ out.push({n:c.dataset.name, p:Number(c.dataset.price), priced:c.dataset.priced==='1'}); }); return out; };
 window.ttUpdateTotal=function(i){ var t=TOURS[i]; if(t.onreq) return; var n=ppl[i]||1;
-  var adds=ttSelAddons(i); var addSum=adds.reduce(function(a,x){return a+x.p;},0);
+  var adds=ttSelAddons(i); var addSum=adds.reduce(function(a,x){return a+(x.priced?x.p:0);},0);
   var tot=(t.price+addSum)*n;
   document.getElementById('t-'+i).innerHTML=fmtMXN(tot); document.getElementById('u-'+i).textContent=fmtUSD(tot);
   var line=document.getElementById('al-'+i);
@@ -948,7 +966,9 @@ window.ttBookNow=function(i){
   if(!el.value){ ttToast('Please choose a tour date first.'); el.focus(); return; }
   var n=ppl[i]||1;
   var items=[{n:t.name.replace(/&amp;/g,'&'), m:dateStr(i)+' \u00b7 '+n+' '+(n>1?'people':'person'), q:n, u:t.price, a:t.price*n}];
-  ttSelAddons(i).forEach(function(x){ items.push({n:'+ '+x.n, m:'Added activity \u00b7 '+n+' '+(n>1?'people':'person'), q:n, u:x.p, a:x.p*n}); });
+  ttSelAddons(i).forEach(function(x){
+    if(x.priced) items.push({n:'+ '+x.n, m:'Added activity \u00b7 '+n+' '+(n>1?'people':'person'), q:n, u:x.p, a:x.p*n});
+    else items.push({n:'+ '+x.n, m:'On request \u2014 we\u2019ll quote you personally', q:n, u:0, a:0}); });
   location.href='checkout.html?items='+encodeURIComponent(JSON.stringify(items));
 };
 window.ttOpen=function(i,mode){

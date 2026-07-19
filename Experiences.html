@@ -333,7 +333,7 @@ img{max-width:100%;height:auto}
     </div>
   </div>
 </footer>
-<div class="mytour-bar" id="mytourBar"><div><b id="mytourCount">0 activities</b><small>in my tour list</small></div><button class="mytour-send" onclick="mytourSend()">Send to May &#128172;</button><button class="mytour-clear" onclick="mytourClear()" aria-label="Clear list">&times;</button></div>
+<div class="mytour-bar" id="mytourBar"><div><b id="mytourCount">0 activities</b><small>in my tour list</small></div><button class="mytour-send" onclick="mytourBook()">Book now &rarr;</button><button class="mytour-clear" onclick="mytourClear()" aria-label="Clear list">&times;</button></div>
 <button class="wa-float" onclick="toggleChat(event)">&#9990; <span data-i18n="wa_title">Chat with May</span></button>
 <div class="mchat" id="mchat" onclick="event.stopPropagation()">
   <div class="mchat-head"><span class="av">M</span>
@@ -635,6 +635,11 @@ var WA_NUMBER='201069706782';
 
 
 
+/* ---- activity prices (MXN/person; null = on request) ---- */
+var XP_PRICES={'Cenotes':1000,'Chich\u00e9n Itz\u00e1':6600,'Tulum Ruins':3700,'Cob\u00e1 Ruins':3900,
+ 'Xcaret Park':3500,'Jungala Aqua':1800,'Cozumel':4600,'Ek Balam':null,'Reef Snorkeling':2350,
+ 'Isla Mujeres':null,'Isla Contoy':null,'Whale Sharks':null,'Holbox Island':null,'Catamaran':null,
+ 'Zipline & ATV':null,'Sian Ka\u2019an':null,'Swim with Dolphins':null,'Spa Day':null,'Private Yacht':null};
 /* ---- my tour list (persists on this device) ---- */
 function mytourGet(){ try{ return JSON.parse(localStorage.getItem('tc_mytour')||'[]'); }catch(e){ return []; } }
 function mytourSave(l){ localStorage.setItem('tc_mytour', JSON.stringify(l)); mytourBar(); }
@@ -650,10 +655,12 @@ function mytourBar(){
   document.getElementById('mytourCount').textContent=l.length+(l.length===1?' activity':' activities');
   bar.classList.toggle('show', l.length>0);
 }
-window.mytourSend=function(){
+window.mytourBook=function(){
   var l=mytourGet(); if(!l.length) return;
-  var msg='Hi May! \u{1F44B} I\u2019m building my tour \u2014 here\u2019s my activity list:\n\n'+l.map(function(n){return '\u2022 '+n;}).join('\n')+'\n\nCan you help me plan it?';
-  window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  var items=l.map(function(n){ var p=XP_PRICES[n];
+    if(p!=null) return {n:n, m:'Activity \u00b7 '+p.toLocaleString('en-US')+' MXN/person \u00d7 1', q:1, u:p, a:p};
+    return {n:n, m:'On request \u2014 we\u2019ll quote you personally', q:1, u:0, a:0}; });
+  location.href='checkout.html?items='+encodeURIComponent(JSON.stringify(items));
 };
 window.mytourClear=function(){ mytourSave([]); renderXp(); };
 mytourBar();
