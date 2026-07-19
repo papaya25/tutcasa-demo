@@ -231,6 +231,19 @@ img{max-width:100%;height:auto}
   .wrap{padding-left:16px;padding-right:16px}
 }
 @media(min-width:881px){ .tcnav-drawer,.tcnav-scrim{display:none} }
+
+/* + add to my tour */
+.xp{position:relative}
+.xp-addbtn{position:absolute;right:10px;bottom:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1.5px solid var(--line);color:var(--ink);font-family:'Outfit';font-weight:700;font-size:12px;padding:7px 12px;border-radius:999px;cursor:pointer;box-shadow:0 2px 8px rgba(58,44,40,.12);transition:all .15s}
+.xp-addbtn:hover{border-color:var(--rosa);color:var(--rosa)}
+.xp-addbtn.on{background:var(--cactus);border-color:var(--cactus);color:#fff}
+.xp-addbtn .plus{font-size:15px;line-height:1}
+.mytour-bar{position:fixed;left:50%;transform:translate(-50%,120px);bottom:18px;z-index:90;display:flex;align-items:center;gap:14px;background:var(--ink);color:#fff;border-radius:999px;padding:12px 12px 12px 22px;box-shadow:0 12px 34px rgba(58,44,40,.35);transition:transform .3s ease;max-width:92vw}
+.mytour-bar.show{transform:translate(-50%,0)}
+.mytour-bar b{font-family:'Baloo 2';font-size:15px;white-space:nowrap}
+.mytour-bar small{opacity:.75;font-size:12px;display:block}
+.mytour-send{background:#1EBE5D;color:#fff;border:none;border-radius:999px;padding:11px 18px;font-family:'Outfit';font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap}
+.mytour-clear{background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:4px}
 </style>
 </head>
 <body>
@@ -320,6 +333,7 @@ img{max-width:100%;height:auto}
     </div>
   </div>
 </footer>
+<div class="mytour-bar" id="mytourBar"><div><b id="mytourCount">0 activities</b><small>in my tour list</small></div><button class="mytour-send" onclick="mytourSend()">Send to May &#128172;</button><button class="mytour-clear" onclick="mytourClear()" aria-label="Clear list">&times;</button></div>
 <button class="wa-float" onclick="toggleChat(event)">&#9990; <span data-i18n="wa_title">Chat with May</span></button>
 <div class="mchat" id="mchat" onclick="event.stopPropagation()">
   <div class="mchat-head"><span class="av">M</span>
@@ -608,8 +622,11 @@ function renderXp(){
   var grid=document.getElementById('xpGrid'); grid.innerHTML='';
   XP.filter(function(x){ return (xCat==='all'||x.cats.indexOf(xCat)>-1) && ((x.town||'Playa del Carmen')===xTown); }).forEach(function(x){
     var a=document.createElement('div'); a.className='xp';
+    var cn=x.n.replace(/&amp;/g,'&').replace(/&aacute;/g,'\u00e1').replace(/&eacute;/g,'\u00e9').replace(/&iacute;/g,'\u00ed').replace(/&uacute;/g,'\u00fa').replace(/&oacute;/g,'\u00f3').replace(/&rsquo;/g,'\u2019').replace(/&[a-z]+;/g,'');
+    var added=mytourHas(cn);
     a.innerHTML='<div class="xp-img '+x.g+'"></div><span class="xp-cat">'+x.ic+'</span><span class="xp-photo">Photo</span>'+
-      '<div class="xp-body"><div class="xp-name">'+x.n+'</div></div>';
+      '<div class="xp-body"><div class="xp-name">'+x.n+'</div></div>'+
+      '<button type="button" class="xp-addbtn'+(added?' on':'')+'" onclick="mytourToggle(this,\''+cn.replace(/'/g,"\\'")+'\')"><span class="plus">'+(added?'&#10003;':'+')+'</span> '+(added?'Added':'Add this to my tour')+'</button>';
     grid.appendChild(a);
   });
   if(!grid.children.length){grid.innerHTML='<div class="xp-empty">No experiences in '+xTown+' yet \u2014 coming soon! Switch back to Playa del Carmen.</div>';}
@@ -617,6 +634,29 @@ function renderXp(){
 var WA_NUMBER='201069706782';
 
 
+
+/* ---- my tour list (persists on this device) ---- */
+function mytourGet(){ try{ return JSON.parse(localStorage.getItem('tc_mytour')||'[]'); }catch(e){ return []; } }
+function mytourSave(l){ localStorage.setItem('tc_mytour', JSON.stringify(l)); mytourBar(); }
+function mytourHas(n){ return mytourGet().indexOf(n)>-1; }
+window.mytourToggle=function(btn,n){
+  var l=mytourGet(); var ix=l.indexOf(n);
+  if(ix>-1){ l.splice(ix,1); btn.classList.remove('on'); btn.innerHTML='<span class="plus">+</span> Add this to my tour'; }
+  else { l.push(n); btn.classList.add('on'); btn.innerHTML='<span class="plus">&#10003;</span> Added'; }
+  mytourSave(l);
+};
+function mytourBar(){
+  var l=mytourGet(); var bar=document.getElementById('mytourBar'); if(!bar) return;
+  document.getElementById('mytourCount').textContent=l.length+(l.length===1?' activity':' activities');
+  bar.classList.toggle('show', l.length>0);
+}
+window.mytourSend=function(){
+  var l=mytourGet(); if(!l.length) return;
+  var msg='Hi May! \u{1F44B} I\u2019m building my tour \u2014 here\u2019s my activity list:\n\n'+l.map(function(n){return '\u2022 '+n;}).join('\n')+'\n\nCan you help me plan it?';
+  window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+};
+window.mytourClear=function(){ mytourSave([]); renderXp(); };
+mytourBar();
 window.onLangApplied=function(){ buildXfilters(); renderXp(); };
 buildXfilters();
 renderXp();
