@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TutCasa — Home v3</title>
+<title>TutCasa — Vacation Rentals in Riviera Maya, Egypt & Florida</title>
+<meta name="description" content="Book beachfront villas & condos in Playa del Carmen, Tulum, Cancun, Egypt & Florida. All-in prices, no hidden fees, WhatsApp concierge. Book direct & save.">
+<link rel="canonical" href="https://tutcasa-demo.vercel.app/">
+<meta property="og:site_name" content="TutCasa">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TutCasa — Vacation Rentals in Riviera Maya, Egypt & Florida">
+<meta property="og:description" content="Book beachfront villas & condos in Playa del Carmen, Tulum, Cancun, Egypt & Florida. All-in prices, no hidden fees, WhatsApp concierge. Book direct & save.">
+<meta property="og:url" content="https://tutcasa-demo.vercel.app/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23E4326B%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23F5A623%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2224%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M28%2062%20A24%2024%200%201%201%2072%2062%22%20stroke%3D%22%23fff%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M22%2066%20Q40%2058%2050%2066%20T78%2066%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%22.85%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -60,8 +69,8 @@ header{background:var(--paper);border-bottom:1px solid var(--line);position:stic
   color:var(--grey);display:flex;align-items:center;gap:7px}
 .aud button.on{color:#fff;background:var(--rosa);box-shadow:0 4px 12px rgba(228,50,107,.3)}
 .aud button.on.own{background:var(--terra);box-shadow:0 4px 12px rgba(232,112,58,.3)}
-.hero h1{font-size:clamp(28px,4.4vw,44px);font-weight:800;line-height:1.08;color:var(--ink)}
-.hero h1 .rosa{color:var(--rosa)}
+.hero h1,.hero .hero-title{font-size:clamp(28px,4.4vw,44px);font-weight:800;line-height:1.08;color:var(--ink)}
+.hero h1 .rosa,.hero .hero-title .rosa{color:var(--rosa)}
 .hero .sub{color:var(--grey);margin-top:8px;font-size:16px}
 .modes{display:inline-flex;gap:6px;margin:22px 0 0}
 .modes button{border:1px solid var(--line);background:var(--paper);color:var(--grey);font-weight:700;
@@ -585,7 +594,7 @@ img{max-width:100%;height:auto}
 
     <!-- OWNER VIEW -->
     <div id="ownerView" class="hidden">
-      <h1>Your casa, <span class="rosa">fully managed.</span></h1>
+      <h2 class="hero-title">Your casa, <span class="rosa">fully managed.</span></h2>
       <p class="sub">Higher occupancy, honest reporting, zero headaches. We treat your home like our own. &#128273;</p>
       <div class="owner-hero">
         <span class="deco">&#128273;</span>
