@@ -232,12 +232,15 @@ img{max-width:100%;height:auto}
 }
 @media(min-width:881px){ .tcnav-drawer,.tcnav-scrim{display:none} }
 
-/* + add to my tour */
+/* + add to my tour — compact round button, label shows as hover tooltip */
 .xp{position:relative}
-.xp-addbtn{position:absolute;right:10px;bottom:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1.5px solid var(--line);color:var(--ink);font-family:'Outfit';font-weight:700;font-size:12px;padding:7px 12px;border-radius:999px;cursor:pointer;box-shadow:0 2px 8px rgba(58,44,40,.12);transition:all .15s}
+.xp-addbtn{position:absolute;right:10px;bottom:10px;z-index:3;display:flex;align-items:center;justify-content:center;width:34px;height:34px;padding:0;background:var(--paper);border:1.5px solid var(--line);color:var(--ink);font-family:'Outfit';font-weight:700;border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(58,44,40,.12);transition:all .15s}
 .xp-addbtn:hover{border-color:var(--rosa);color:var(--rosa)}
 .xp-addbtn.on{background:var(--cactus);border-color:var(--cactus);color:#fff}
-.xp-addbtn .plus{font-size:15px;line-height:1}
+.xp-addbtn .plus{font-size:18px;line-height:1}
+.xp-addbtn::after{content:attr(data-tip);position:absolute;right:0;bottom:calc(100% + 8px);background:var(--ink);color:#fff;font-size:11.5px;font-weight:600;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateY(3px);pointer-events:none;transition:opacity .15s,transform .15s}
+.xp-addbtn:hover::after{opacity:1;transform:none}
+@media(hover:none){.xp-addbtn::after{display:none}}
 .mytour-bar{position:fixed;left:50%;transform:translate(-50%,120px);bottom:18px;z-index:90;display:flex;align-items:center;gap:14px;background:var(--ink);color:#fff;border-radius:999px;padding:12px 12px 12px 22px;box-shadow:0 12px 34px rgba(58,44,40,.35);transition:transform .3s ease;max-width:92vw}
 .mytour-bar.show{transform:translate(-50%,0)}
 .mytour-bar b{font-family:'Baloo 2';font-size:15px;white-space:nowrap}
@@ -256,7 +259,7 @@ img{max-width:100%;height:auto}
     <nav class="nav-links">
       <a href="Stays.html"><span class="ni">&#127968;</span><span data-i18n="nav_stays">Stays</span></a>
       <a href="Concierge.html"><span class="ni">&#128736;&#65039;</span><span data-i18n="nav_concierge">Concierge</span></a>
-      <a href="Experiences.html" class="active"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
+      <a href="Tours.html" class="active"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
       <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
     </nav>
     <div class="nav-right">
@@ -626,7 +629,7 @@ function renderXp(){
     var added=mytourHas(cn);
     a.innerHTML='<div class="xp-img '+x.g+'"></div><span class="xp-cat">'+x.ic+'</span><span class="xp-photo">Photo</span>'+
       '<div class="xp-body"><div class="xp-name">'+x.n+'</div></div>'+
-      '<button type="button" class="xp-addbtn'+(added?' on':'')+'" onclick="mytourToggle(this,\''+cn.replace(/'/g,"\\'")+'\')"><span class="plus">'+(added?'&#10003;':'+')+'</span> '+(added?'Added':'Add this to my tour')+'</button>';
+      '<button type="button" class="xp-addbtn'+(added?' on':'')+'" data-tip="'+(added?'Added — tap to remove':'Add this to my tour')+'" aria-label="Add this to my tour" onclick="mytourToggle(this,\''+cn.replace(/'/g,"\\'")+'\')"><span class="plus">'+(added?'&#10003;':'+')+'</span></button>';
     grid.appendChild(a);
   });
   if(!grid.children.length){grid.innerHTML='<div class="xp-empty">No experiences in '+xTown+' yet \u2014 coming soon! Switch back to Playa del Carmen.</div>';}
@@ -646,8 +649,8 @@ function mytourSave(l){ localStorage.setItem('tc_mytour', JSON.stringify(l)); my
 function mytourHas(n){ return mytourGet().indexOf(n)>-1; }
 window.mytourToggle=function(btn,n){
   var l=mytourGet(); var ix=l.indexOf(n);
-  if(ix>-1){ l.splice(ix,1); btn.classList.remove('on'); btn.innerHTML='<span class="plus">+</span> Add this to my tour'; }
-  else { l.push(n); btn.classList.add('on'); btn.innerHTML='<span class="plus">&#10003;</span> Added'; }
+  if(ix>-1){ l.splice(ix,1); btn.classList.remove('on'); btn.innerHTML='<span class="plus">+</span>'; btn.setAttribute('data-tip','Add this to my tour'); }
+  else { l.push(n); btn.classList.add('on'); btn.innerHTML='<span class="plus">&#10003;</span>'; btn.setAttribute('data-tip','Added — tap to remove'); }
   mytourSave(l);
 };
 function mytourBar(){
@@ -727,7 +730,7 @@ document.addEventListener("click",function(e){var w=document.getElementById("xDe
   <nav class="tcnav-links">
     <a href="Stays.html"><span class="ni">&#127968;</span><span data-i18n="nav_stays">Stays</span></a>
     <a href="Concierge.html"><span class="ni">&#128736;&#65039;</span><span data-i18n="nav_concierge">Concierge</span></a>
-    <a href="Experiences.html"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
+    <a href="Tours.html"><span class="ni">&#127905;</span><span data-i18n="nav_tours">Tours &amp; Parks</span></a>
     <a href="Our_family.html"><span class="ni">&#128149;</span><span data-i18n="nav_family">Our Family</span></a>
     <a href="wishlist.html"><span class="ni">&#10084;&#65039;</span>Wishlist <span class="wcount" id="tcnavCount"></span></a>
   </nav>
